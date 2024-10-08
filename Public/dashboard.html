@@ -1,0 +1,135 @@
+<!-- public/dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | Skill Exchange Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Welcome, <span id="username"></span>!</h2>
+
+    <!-- Success Message -->
+    <div
+      id="success-message"
+      style="display: none; text-align: center; color: green; margin-top: 10px;"
+    >
+      Profile saved successfully!
+    </div>
+
+    <!-- Profile Summary -->
+    <div id="profile-summary" style="display: none;">
+      <h3>Your Profile</h3>
+      <p><strong>Full Name:</strong> <span id="summary-fullName"></span></p>
+      <p><strong>Location:</strong> <span id="summary-location"></span></p>
+      <p><strong>Skills Offered:</strong> <span id="summary-skillsOffered"></span></p>
+      <p><strong>Skills Wanted:</strong> <span id="summary-skillsWanted"></span></p>
+      <p><strong>Availability:</strong> <span id="summary-availability"></span></p>
+      <p><strong>Contact Preference:</strong> <span id="summary-contactPreference"></span></p>
+      <p><strong>Bio:</strong> <span id="summary-bio"></span></p>
+      <button id="edit-profile-button">Edit Profile</button>
+    </div>
+
+    <!-- Profile Form -->
+    <form
+      action="/save-profile"
+      method="POST"
+      id="profile-form"
+      style="display: none;"
+    >
+      <!-- Full Name -->
+      <label for="fullName">Full Name:</label>
+      <input
+        type="text"
+        name="fullName"
+        id="fullName"
+        placeholder="Enter your full name"
+        required
+      />
+
+      <!-- Location -->
+      <label for="location">Location:</label>
+      <input
+        type="text"
+        name="location"
+        id="location"
+        placeholder="City or neighborhood"
+        required
+      />
+
+      <!-- Skills Offered -->
+      <label for="skillsOffered">Skills You Offer:</label>
+      <textarea
+        name="skillsOffered"
+        id="skillsOffered"
+        rows="4"
+        placeholder="List your skills separated by commas"
+        required
+      ></textarea>
+
+      <!-- Skills Wanted -->
+      <label for="skillsWanted">Skills You Want to Learn:</label>
+      <textarea
+        name="skillsWanted"
+        id="skillsWanted"
+        rows="4"
+        placeholder="List skills you want to learn separated by commas"
+        required
+      ></textarea>
+
+      <!-- Availability -->
+      <label for="availability">Availability:</label>
+      <input
+        type="text"
+        name="availability"
+        id="availability"
+        placeholder="e.g., Weekends, Evenings"
+        required
+      />
+
+      <!-- Contact Preference -->
+      <label for="contactPreference">Contact Preference:</label>
+      <select name="contactPreference" id="contactPreference" required>
+        <option value="">Select an option</option>
+        <option value="Email">Email</option>
+        <option value="Phone">Phone</option>
+        <option value="Messaging">Messaging</option>
+      </select>
+
+      <!-- Short Bio -->
+      <label for="bio">Short Bio:</label>
+      <textarea
+        name="bio"
+        id="bio"
+        rows="5"
+        placeholder="Tell us a bit about yourself..."
+      ></textarea>
+
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2023 Skill Exchange Platform
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

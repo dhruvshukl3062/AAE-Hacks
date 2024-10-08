@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register | Skill Exchange Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="form-container">
+    <h2>Create Your Account</h2>
+    <form action="/register" method="POST">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Enter your username"
+        required
+      />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      />
+
+      <button type="submit">Register</button>
+    </form>
+    <p style="text-align: center;">
+      Already have an account? <a href="login.html">Login here</a>.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2023 Skill Exchange Platform
+  </footer>
+</body>
+</html>
