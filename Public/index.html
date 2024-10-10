@@ -14,9 +14,18 @@
 <body class="homepage">
   <!-- Navigation Bar -->
   <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
+    <div class="logo">
+      <a href="index.html">Skill Exchange</a>
+    </div>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+    </div>
   </nav>
 
   <!-- Hero Section -->
@@ -24,7 +33,7 @@
     <div class="hero-content">
       <h1>
         <span class="highlight">
-          Connect & Grow
+          <strong><em>Connect & Grow</em></strong>
           <div class="underline"></div>
         </span>
         with Your Community
@@ -39,65 +48,23 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>What is the Neighborhood Skill Exchange Platform?</h2>
-    <p>
-      Our platform brings neighbors together to share their unique skills and talents.
-      Whether you're looking to learn a new hobby or offer your expertise to others,
-      we're here to help you connect with like-minded individuals in your community.
-    </p>
-  </section>
-
-  <!-- How It Works Section -->
-  <section class="how-it-works">
-    <h2>How It Works</h2>
-    <div class="steps">
-      <div class="step">
-        <h3>1. Sign Up</h3>
-        <p>Create a free account to get started.</p>
-      </div>
-      <div class="step">
-        <h3>2. Create Your Profile</h3>
-        <p>List the skills you offer and those you want to learn.</p>
-      </div>
-      <div class="step">
-        <h3>3. Connect</h3>
-        <p>Find and connect with neighbors to exchange skills.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials">
-    <h2>What Our Users Say</h2>
-    <div class="testimonial-carousel">
-      <div class="testimonial active">
-        <p>"This platform helped me learn guitar from my neighbor! It's amazing how much talent is around us."</p>
-        <h4>- Alex, Music Enthusiast</h4>
-      </div>
-      <div class="testimonial">
-        <p>"I taught painting classes and made new friends in the neighborhood."</p>
-        <h4>- Maria, Artist</h4>
-      </div>
-      <div class="testimonial">
-        <p>"Sharing my cooking skills has never been easier. Love this platform!"</p>
-        <h4>- John, Chef</h4>
-      </div>
-      <!-- Add more testimonials as needed -->
-      <div class="carousel-controls">
-        <span class="prev">&#10094;</span>
-        <span class="next">&#10095;</span>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer>
     <p>&copy; 2023 Skill Exchange Platform</p>
     <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Integrated Script -->
+  <script>
+    function toggleMenu() {
+      var navLinks = document.getElementById("navLinks");
+      if (navLinks.style.display === "flex") {
+        navLinks.style.display = "none";
+      } else {
+        navLinks.style.display = "flex";
+        navLinks.style.flexDirection = "column";
+      }
+    }
+  </script>
 </body>
 </html>
