@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Dashboard | Skill Exchange Platform</title>
-  <!-- Google Fonts -->
+  
+  <!-- Load Google Fonts for typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap"
     rel="stylesheet"
   >
 
+  <!-- Load Font Awesome for icon usage -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -17,138 +19,142 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  
   <style>
-
-  :root {
-        --primary-color: #1e1e1e;        /* Dark gray for text and accents */
-        --secondary-color: #ffffff;      /* White for backgrounds */
-        --accent-color: #ff6f61;         /* Modern accent color */
-        --text-color: #333333;           /* Dark gray for general text */
-        --background-color: #ffffff;     /* White background */
-        --button-border-color: #b71c1c;  /* Red color for button border */
-        --button-hover-bg: #b71c1c;      /* Red color for button hover background */
-        --button-hover-text: #ffffff;    /* White text on hover */
-      }
+    /* Define CSS variables for consistent theming */
+    :root {
+      --primary-color: #1e1e1e;        /* Dark gray for text and accents */
+      --secondary-color: #ffffff;      /* White for backgrounds */
+      --accent-color: #ff6f61;         /* Modern accent color */
+      --text-color: #333333;           /* Dark gray for general text */
+      --background-color: #ffffff;     /* White background */
+      --button-border-color: #b71c1c;  /* Red color for button border */
+      --button-hover-bg: #b71c1c;      /* Red color for button hover background */
+      --button-hover-text: #ffffff;    /* White text on hover */
+    }
     
-    /* Reset and Base Styles */
+    /* Reset default margins and paddings */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-
+    /* Set base styles for html and body */
     html, body {
       height: 100%;
       font-family: 'Open Sans', sans-serif;
-      background: white; /* Clean white background */
+      background: white;
       display: flex;
       flex-direction: column;
     }
 
-
+    /* Style the navigation bar */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: var(--secondary-color); /* Changed to white */
-      padding: 15px 30px; /* Increased horizontal padding */
+      background-color: var(--secondary-color);
+      padding: 15px 30px;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Added subtle shadow for depth */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
     
+    /* Style the logo link in the nav */
     nav .logo a {
-      color: var(--primary-color); /* Changed to dark text */
+      color: var(--primary-color);
       font-weight: bold;
       font-size: 24px;
       text-decoration: none;
     }
     
+    /* Style the menu icon for responsive navigation */
     nav .menu-icon {
       display: none;
       flex-direction: column;
       cursor: pointer;
     }
     
+    /* Style individual bars of the menu icon */
     nav .menu-icon .bar {
       width: 25px;
       height: 3px;
-      background-color: var(--primary-color); /* Changed to dark color */
+      background-color: var(--primary-color);
       margin: 4px 0;
     }
     
+    /* Style the navigation links container */
     nav .nav-links {
       display: flex;
     }
     
+    /* Style individual navigation links */
     nav .nav-links a {
-      color: var(--primary-color); /* Changed to dark text */
+      color: var(--primary-color);
       font-weight: bold;
       margin-left: 20px;
       text-decoration: none;
       transition: color 0.3s;
     }
     
+    /* Change color on hover for navigation links */
     nav .nav-links a:hover {
       color: var(--accent-color);
     }
     
-    
-    
-    /* Sidebar Styling */
+    /* Style the sidebar for connected neighbors */
     .sidebar {
       height: 100%;
       width: 200px;
       position: fixed;
       top: 0;
-      left: -250px; /* Hidden by default */
+      left: -250px;
       background-color: #f4f4f4;
       box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-      padding-top: 60px; /* Space for the nav bar */
+      padding-top: 60px;
       transition: left 0.3s ease;
       overflow-y: auto;
-      z-index: 1001; /* Below the nav bar */
+      z-index: 1001;
     }
 
-
+    /* Position the sidebar when open */
     .sidebar.open {
       left: 0;
     }
 
-
+    /* Style the sidebar header */
     .sidebar h3 {
       text-align: center;
       color: #333;
       margin-bottom: 20px;
-      border-bottom: 2px solid #ccc; /* Underline */
+      border-bottom: 2px solid #ccc;
       padding-bottom: 50px;
       position: relative;
       overflow: hidden;
-      font-family: 'Roboto', sans-serif; /* Applied Roboto font */
+      font-family: 'Roboto', sans-serif;
     }
 
-
-    /* Animated Loading Line Underline */
+    /* Create an underline effect for the sidebar header */
     .sidebar h3::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 2px; /* Increased height from 1px to 2px */
-      background-color: #b71c1c; /* Solid red line */
+      height: 2px;
+      background-color: #b71c1c;
     }
 
-
+    /* Define keyframes for the loading line animation */
     @keyframes loadingLine {
       0% { transform: translateX(-100%); }
       50% { transform: translateX(0%); }
       100% { transform: translateX(100%); }
     }
 
-
+    /* Style the container for connected neighbors */
     .sidebar .connected-neighbors {
       display: flex;
       flex-direction: column;
@@ -157,11 +163,11 @@
       padding: 0 20px;
     }
 
-
+    /* Style individual neighbor icons */
     .neighbor-icon {
       width: 100%;
-      background-color: white; /* Pleasant color */
-      color: #333; /* Better contrast */
+      background-color: white;
+      color: #333;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -174,28 +180,27 @@
       transition: background-color 0.3s, transform 0.2s;
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border-bottom: 1px solid #ccc; /* Underline */
+      border-bottom: 1px solid #ccc;
     }
 
-
+    /* Hide neighbor names when sidebar is open */
     .sidebar.open .neighbor-name {
       display: none;
     }
 
-
+    /* Add hover effects to neighbor icons */
     .neighbor-icon:hover {
       transform: scale(1.02);
-      background-color: #ffe5e5; /* Light red on hover */
+      background-color: #ffe5e5;
     }
 
-
-    /* Circular Avatar */
+    /* Style the circular avatar for neighbors */
     .avatar {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: #b71c1c; /* Deep red */
-      color: #fff; /* White text */
+      background-color: #b71c1c;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -205,12 +210,12 @@
       font-size: 18px;
     }
 
-
+    /* Adjust avatar margin when sidebar is open */
     .sidebar.open .avatar {
       margin-right: 10px;
     }
 
-
+    /* Style the neighbor's name */
     .neighbor-name {
       font-size: 16px;
       white-space: nowrap;
@@ -221,13 +226,12 @@
       transition: opacity 0.3s;
     }
 
-
-    /* Adjust rate-button position when sidebar is open */
+    /* Position the rate button when sidebar is open */
     .sidebar.open .rate-button {
-      margin-left: auto; /* Pushes the button to the far right */
+      margin-left: auto;
     }
 
-
+    /* Style the rate service button */
     .rate-button {
       padding: 5px 5px;
       font-size: 12px;
@@ -242,12 +246,12 @@
       justify-content: center;
     }
 
-
+    /* Change background color on hover for rate button */
     .rate-button:hover {
       background-color: #b71c1c;
     }
 
-
+    /* Style the rate button when already rated */
     .rate-button.rated {
       border: 2px solid #ccc;
       background-color: #ccc;
@@ -255,150 +259,142 @@
       cursor: not-allowed;
     }
 
-
-    /* Main Container Styling */
+    /* Style the main content container */
     .container {
       flex: 1;
-      padding: 100px 20px 120px 20px; /* Increased top and bottom padding */
+      padding: 100px 20px 120px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-left: 0; /* Adjusted for sidebar */
+      margin-left: 0;
       transition: margin-left 0.3s ease;
-      /* Removed min-height to prevent overflow */
     }
 
-
+    /* Shift the container when sidebar is open */
     .container.shifted {
-      margin-left: 250px; /* Width of the sidebar */
+      margin-left: 250px;
     }
 
-
-    /* Profile Card Styling */
+    /* Style the profile card */
     .profile-card {
-      background-color: #ffffff; /* White background */
-      padding: 40px; /* Increased padding */
-      border-radius: 8px; /* Clean border-radius */
-      box-shadow: 0 0 2px 4px rgba(134, 20, 20, 0.3); /* Subtle shadow */
-      max-width: 600px; /* Increased max-width */
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 2px 4px rgba(134, 20, 20, 0.3);
+      max-width: 600px;
       width: 100%;
-      text-align: center; /* Centered text */
+      text-align: center;
       margin-bottom: 20px;
       position: relative;
       z-index: 1;
     }
 
-
+    /* Style the welcome message header */
     .profile-card h2 {
-      color: #b71c1c; /* Deep red color for headings */
-      margin-top: 0; /* Shifted up */
+      color: #b71c1c;
+      margin-top: 0;
       margin-bottom: 10px;
       font-size: 28px;
       position: relative;
       display: inline-block;
       overflow: hidden;
       white-space: nowrap;
-      border-right: .15em solid #b71c1c; /* Cursor effect */
-      font-family: 'Roboto', sans-serif; /* Applied Roboto font */
+      border-right: .15em solid #b71c1c;
+      font-family: 'Roboto', sans-serif;
     }
 
-
-    /* Animation for Typewriter Effect */
+    /* Define keyframes for caret blinking effect */
     @keyframes blink-caret {
       from, to { border-color: transparent }
       50% { border-color: #b71c1c; }
     }
 
-
+    /* Add caret animation to the welcome message */
     .profile-card h2::after {
       content: '';
       border-right: .15em solid #b71c1c;
       animation: blink-caret .75s step-end infinite;
     }
 
-
+    /* Style the profile summary header */
     .profile-card h3 {
       color: #333;
-      margin-top: 15px; /* Reduced from 20px to 15px to shift up */
-      margin-bottom: 20px; /* Increased from 15px to 20px for more space */
+      margin-top: 15px;
+      margin-bottom: 20px;
       font-size: 20px;
-      border-bottom: 2px solid #e0e0e0; /* Underline */
+      border-bottom: 2px solid #e0e0e0;
       padding-bottom: 5px;
       position: relative;
       overflow: hidden;
-      font-family: 'Roboto', sans-serif; /* Applied Roboto font */
+      font-family: 'Roboto', sans-serif;
     }
 
-
-    /* Animated Loading Line Under Profile */
+    /* Add animated underline to profile summary header */
     .profile-card h3::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 2px; /* Increased height from 1px to 2px */
-      background-color: #b71c1c; /* Solid red line */
-      animation: loadingLine 6s linear infinite; /* Slower animation */
+      height: 2px;
+      background-color: #b71c1c;
+      animation: loadingLine 6s linear infinite;
     }
 
-
+    /* Style the profile summary paragraphs */
     .profile-card p {
-      margin: 12px 0; /* Increased from 8px to 12px for more spacing */
+      margin: 12px 0;
       color: #555;
       font-size: 16px;
       line-height: 1.5;
-      text-align: center; /* Centered text as per user's request */
+      text-align: center;
     }
 
-
-    /* Footer Styling */
+    /* Style the footer */
     footer {
       background-color: #1e1e1e;
       color: #f4f4f4;
       text-align: center;
-      padding: 30px; /* Increased padding for larger footer */
-      font-size: 18px; /* Increased font size for better visibility */
+      padding: 30px;
+      font-size: 18px;
       width: 100%;
       bottom: 50px;
       position: relative;
     }
 
-
-    /* Button Group Styling */
+    /* Style the button group container */
     .button-group {
       display: flex;
       justify-content: center;
-      gap: 15px; /* Space between buttons */
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
-      margin-top: 20px; /* Space above the button group */
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
-
-    /* Enhanced Button Styling */
+    /* Style buttons within the profile card */
     .profile-card button {
       padding: 10px 20px;
       font-size: 14px;
-      border: 2px solid #b71c1c; /* Red-colored outline */
+      border: 2px solid #b71c1c;
       border-radius: 5px;
       cursor: pointer;
-      background-color: transparent; /* Removed background color */
-      color: #b71c1c; /* Red text */
+      background-color: transparent;
+      color: #b71c1c;
       transition: background-color 0.3s, color 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 120px; /* Ensure buttons have a minimum width */
-      font-family: 'Open Sans', sans-serif; /* Consistent font */
+      min-width: 120px;
+      font-family: 'Open Sans', sans-serif;
     }
 
-
+    /* Change button appearance on hover */
     .profile-card button:hover {
-      background-color: #b71c1c; /* Red background on hover */
-      color: #ffffff; /* White text on hover */
+      background-color: #b71c1c;
+      color: #ffffff;
     }
 
-
+    /* Style the rate button when rated */
     .rate-button.rated {
       border: 2px solid #ccc;
       background-color: #ccc;
@@ -406,94 +402,87 @@
       cursor: not-allowed;
     }
 
-
-    /* Form Styling */
+    /* Style the profile form */
     form {
       display: flex;
       flex-direction: column;
-      align-items: stretch; /* Changed from flex-start to stretch for full-width elements */
+      align-items: stretch;
       width: 100%;
-      max-width: 500px; /* Set a max-width for better layout */
-      margin: 0 auto; /* Center the form horizontally */
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-
-    /* Form Group Styling */
+    /* Style individual form groups */
     .form-group {
       width: 100%;
-      margin-bottom: 20px; /* Consistent spacing between form groups */
+      margin-bottom: 20px;
       display: flex;
-      flex-direction: column; /* Stack label and input vertically */
+      flex-direction: column;
     }
 
-
-    /* Label Styling */
+    /* Style labels within form groups */
     .form-group label {
-      margin-bottom: 8px; /* Increased space between label and input */
+      margin-bottom: 8px;
       color: #555;
       font-weight: 600;
       font-size: 14px;
       font-family: 'Open Sans', sans-serif;
     }
 
-
-    /* Input and Select Styling */
+    /* Style input, select, and textarea elements */
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 10px 12px; /* Increased padding for better usability */
-      border: 2px solid #ccc; /* Enhanced border for better visibility */
-      border-radius: 4px; /* Slight rounding for aesthetics */
-      background-color: #f9f9f9; /* Light background for inputs */
+      padding: 10px 12px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
       font-size: 14px;
       font-family: 'Open Sans', sans-serif;
       transition: border-color 0.3s, box-shadow 0.3s;
       box-sizing: border-box;
     }
 
-    /* Specific styles for textarea to adjust placeholder alignment */
+    /* Adjust textarea specific styles */
     .form-group textarea {
-      padding-top: 10px; /* Reset padding-top */
-      line-height: 1.5; /* Ensure consistent line height */
-      height: 100px; /* Set a fixed height to control the overall size */
-      resize: vertical; /* Allow vertical resizing */
+      padding-top: 10px;
+      line-height: 1.5;
+      height: 100px;
+      resize: vertical;
     }
 
-
-    /* Focus Effects for Inputs */
+    /* Add focus effects to form elements */
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #b71c1c; /* Deep red on focus */
-      box-shadow: 0 0 5px rgba(183, 28, 28, 0.5); /* Subtle shadow on focus */
+      border-color: #b71c1c;
+      box-shadow: 0 0 5px rgba(183, 28, 28, 0.5);
     }
 
-
-    /* Placeholder Styling */
+    /* Style placeholder text in form elements */
     .form-group input::placeholder,
     .form-group select::placeholder,
     .form-group textarea::placeholder {
       color: #aaa;
-      opacity: 1; /* Fully opaque */
+      opacity: 1;
     }
 
-
-    /* Save Profile Button Styling */
+    /* Style the container for the save button */
     .button-container {
       width: 100%;
       display: flex;
-      justify-content: center; /* Center the button */
+      justify-content: center;
     }
 
-
+    /* Style the save profile button */
     form button {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 24px; /* Increased padding for a larger clickable area */
-      background-color: #b71c1c; /* Primary red color */
+      padding: 12px 24px;
+      background-color: #b71c1c;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -504,22 +493,20 @@
       width: auto;
     }
 
-
+    /* Change save button background on hover */
     form button:hover {
-      background-color: #ff6f61; /* Lighter red on hover */
+      background-color: #ff6f61;
     }
 
-
-    /* Add a tiny space between icon and text in buttons */
+    /* Add spacing between icons and text in buttons */
     form button i,
     .profile-card button i,
     .rate-button i {
-      margin-right: 8px; /* Increased space between icon and text */
-      font-size: 16px; /* Ensure consistent icon size */
+      margin-right: 8px;
+      font-size: 16px;
     }
 
-
-    /* Responsive adjustments */
+    /* Responsive styling for medium screens */
     @media (max-width: 1200px) {
       .sidebar {
         width: 200px;
@@ -541,7 +528,7 @@
       }
     }
 
-
+    /* Responsive styling for small screens */
     @media (max-width: 800px) {
       .sidebar {
         width: 180px;
@@ -562,11 +549,11 @@
         font-size: 14px;
       }
       .button-group {
-        gap: 10px; /* Reduced space between buttons */
+        gap: 10px;
       }
     }
 
-
+    /* Responsive styling for extra small screens */
     @media (max-width: 600px) {
       .sidebar {
         width: 150px;
@@ -587,17 +574,15 @@
         font-size: 12px;
       }
       .button-group {
-        flex-direction: column; /* Stack buttons vertically on very small screens */
+        flex-direction: column;
         gap: 10px;
       }
       .profile-card button {
-        width: 100%; /* Make buttons full width */
+        width: 100%;
       }
-      /* Adjust form max-width on small screens */
       form {
         max-width: 90%;
       }
-      /* Adjust Save Profile button width */
       form button {
         width: 100%;
       }
@@ -606,6 +591,7 @@
 </head>
 <body>
 
+  <!-- Navigation bar with logo and links -->
   <nav>
     <div class="logo">
       <a href="index.html">Skill Exchange</a>
@@ -623,7 +609,7 @@
     </div>
   </nav>
 
-  <!-- Sidebar for Connected Neighbors -->
+  <!-- Sidebar displaying connected neighbors -->
   <div class="sidebar" id="neighbors-sidebar">
     <h3>Connected <br> Neighbors</h3>
     <div class="connected-neighbors" id="connected-neighbors">
@@ -631,15 +617,13 @@
     </div>
   </div>
 
-
-  <!-- Main Content -->
+  <!-- Main content area -->
   <div class="container" id="main-container">
-    <!-- Profile Card -->
+    <!-- Profile card displaying user information -->
     <div class="profile-card">
       <h2 id="welcome-message">Welcome, <span id="username">User</span>!</h2>
 
-
-      <!-- Success Message -->
+      <!-- Success message displayed after saving profile -->
       <div
         id="success-message"
         style="display: none; color: green; margin-bottom: 15px;"
@@ -647,8 +631,7 @@
         Profile saved successfully!
       </div>
 
-
-      <!-- Profile Summary -->
+      <!-- Profile summary section -->
       <div id="profile-summary" style="display: none;">
         <h3>Your Profile</h3>
         <p><strong>Full Name:</strong> <span id="summary-fullName"></span></p>
@@ -659,7 +642,7 @@
         <p><strong>Contact Preference:</strong> <span id="summary-contactPreference"></span></p>
         <p><strong>Bio:</strong> <span id="summary-bio"></span></p>
        
-        <!-- Button Group for Side-by-Side Buttons -->
+        <!-- Group of action buttons -->
         <div class="button-group">
           <button id="edit-profile-button" aria-label="Edit Profile">
             <i class="fas fa-edit"></i> Edit Profile
@@ -673,13 +656,12 @@
         </div>
       </div>
 
-
-      <!-- Profile Form -->
+      <!-- Profile editing form -->
       <form
         id="profile-form"
         style="display: none;"
       >
-        <!-- Full Name -->
+        <!-- Full Name input field -->
         <div class="form-group">
           <label for="fullName">Full Name:</label>
           <input
@@ -691,8 +673,7 @@
           />
         </div>
 
-
-        <!-- Location -->
+        <!-- Location input field -->
         <div class="form-group">
           <label for="location">Location:</label>
           <input
@@ -704,8 +685,7 @@
           />
         </div>
 
-
-        <!-- Skills Offered -->
+        <!-- Skills Offered textarea -->
         <div class="form-group">
           <label for="skillsOffered">Skills You Offer:</label>
           <textarea
@@ -717,8 +697,7 @@
           ></textarea>
         </div>
 
-
-        <!-- Skills Wanted -->
+        <!-- Skills Wanted textarea -->
         <div class="form-group">
           <label for="skillsWanted">Skills You Want to Learn:</label>
           <textarea
@@ -730,8 +709,7 @@
           ></textarea>
         </div>
 
-
-        <!-- Availability -->
+        <!-- Availability input field -->
         <div class="form-group">
           <label for="availability">Availability:</label>
           <input
@@ -743,8 +721,7 @@
           />
         </div>
 
-
-        <!-- Contact Preference -->
+        <!-- Contact Preference select dropdown -->
         <div class="form-group">
           <label for="contactPreference">Contact Preference:</label>
           <select name="contactPreference" id="contactPreference" required>
@@ -755,8 +732,7 @@
           </select>
         </div>
 
-
-        <!-- Short Bio -->
+        <!-- Short Bio textarea -->
         <div class="form-group">
           <label for="bio">Short Bio:</label>
           <textarea
@@ -767,8 +743,7 @@
           ></textarea>
         </div>
 
-
-        <!-- Save Profile Button -->
+        <!-- Save Profile button -->
         <div class="form-group button-container">
           <button type="submit" aria-label="Save Profile">
             <i class="fas fa-save"></i> Save Profile
@@ -778,41 +753,36 @@
     </div>
   </div>
 
-
-  <!-- Footer -->
+  <!-- Footer section -->
   <footer>
     &copy; 2023 Skill Exchange Platform
   </footer>
 
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Retrieve currentUser from localStorage
+      // Retrieve the current user from localStorage
       const currentUser = localStorage.getItem('currentUser');
 
-
+      // Redirect to login if no user is logged in
       if (!currentUser) {
-        // If no user is logged in, redirect to login page
         window.location.href = 'login.html';
         return;
       }
 
-
-      // Display username
+      // Display the username in the welcome message
       const usernameSpan = document.getElementById('username');
       usernameSpan.textContent = currentUser;
 
-
-      // Dynamic Welcome Message with Typewriter Effect
+      // Initialize variables for the typewriter effect in the welcome message
       const welcomeMessageElement = document.getElementById('welcome-message');
       const welcomeMessages = ["Welcomee", "How are youu"];
       let messageIndex = 0;
       let charIndex = 0;
       let isDeleting = false;
-      const typingSpeed = 150; // Typing speed in ms
-      const pauseBetweenMessages = 3000; // Pause between messages in ms
+      const typingSpeed = 150; // Speed of typing in milliseconds
+      const pauseBetweenMessages = 3000; // Pause duration between messages
 
-
+      // Function to handle the typewriter effect
       function type() {
         const currentMessage = welcomeMessages[messageIndex];
         let displayedText = currentMessage.substring(0, charIndex);
@@ -823,13 +793,11 @@
           charIndex++;
         }
 
-
         // Update the welcome message with the current substring
         welcomeMessageElement.innerHTML = `${displayedText}, <span id='username'>${currentUser}</span>!`;
 
-
         if (!isDeleting && charIndex === currentMessage.length) {
-          // Pause at the end of typing
+          // Pause after completing typing
           setTimeout(() => {
             isDeleting = true;
             type();
@@ -837,27 +805,24 @@
           return;
         }
 
-
         if (isDeleting && charIndex === 0) {
-          // Move to the next message
+          // Move to the next message after deleting
           isDeleting = false;
           messageIndex = (messageIndex + 1) % welcomeMessages.length;
-          setTimeout(type, 500); // Small pause before typing starts
+          setTimeout(type, 500); // Short pause before typing starts again
           return;
         }
 
-
+        // Continue typing or deleting
         setTimeout(type, isDeleting ? typingSpeed / 2 : typingSpeed);
       }
-
 
       // Start the typewriter effect
       type();
 
-
-      // Function to load profile data
+      // Function to load and display the user's profile
       function loadProfile() {
-        // Load profile from localStorage or set default
+        // Retrieve profile data from localStorage or set default values
         const profile = JSON.parse(localStorage.getItem(`profile_${currentUser}`)) || {
           fullName: "Example Name",
           location: "Example Address",
@@ -868,8 +833,7 @@
           bio: "Example Bio",
         };
 
-
-        // Populate profile summary
+        // Populate the profile summary with retrieved data
         document.getElementById('summary-fullName').textContent = profile.fullName;
         document.getElementById('summary-location').textContent = profile.location;
         document.getElementById('summary-skillsOffered').textContent = profile.skillsOffered;
@@ -878,29 +842,27 @@
         document.getElementById('summary-contactPreference').textContent = profile.contactPreference;
         document.getElementById('summary-bio').textContent = profile.bio;
 
-
-        // Hide form and show summary
+        // Hide the form and show the profile summary
         document.getElementById('profile-form').style.display = 'none';
         document.getElementById('profile-summary').style.display = 'block';
       }
 
-
+      // Load the profile on page load
       loadProfile();
 
-
-      // Edit Profile Button Logic
+      // Get references to profile editing elements
       const editProfileButton = document.getElementById('edit-profile-button');
       const profileForm = document.getElementById('profile-form');
       const profileSummary = document.getElementById('profile-summary');
       const successMessage = document.getElementById('success-message');
 
-
+      // Event listener for the Edit Profile button
       editProfileButton.addEventListener('click', () => {
+        // Hide the profile summary and show the form
         profileSummary.style.display = 'none';
-        profileForm.style.display = 'flex'; /* Changed to flex for alignment */
+        profileForm.style.display = 'flex';
 
-
-        // Populate form with existing data
+        // Populate the form with existing profile data
         const profile = JSON.parse(localStorage.getItem(`profile_${currentUser}`)) || {};
         document.getElementById('fullName').value = profile.fullName || '';
         document.getElementById('location').value = profile.location || '';
@@ -911,10 +873,10 @@
         document.getElementById('bio').value = profile.bio || '';
       });
 
-
-      // Handle Profile Form Submission
+      // Handle form submission for saving profile
       profileForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        // Collect updated profile data from the form
         const updatedProfile = {
           fullName: document.getElementById('fullName').value.trim(),
           location: document.getElementById('location').value.trim(),
@@ -924,120 +886,109 @@
           contactPreference: document.getElementById('contactPreference').value,
           bio: document.getElementById('bio').value.trim(),
         };
+        // Save the updated profile to localStorage
         localStorage.setItem(`profile_${currentUser}`, JSON.stringify(updatedProfile));
+        // Show success message
         successMessage.style.display = 'block';
+        // Hide success message and reload profile after a delay
         setTimeout(() => {
           successMessage.style.display = 'none';
           loadProfile();
         }, 2000);
       });
 
-
-      // Connected Neighbors Logic
+      // Reference to the container displaying connected neighbors
       const connectedNeighborsDiv = document.getElementById('connected-neighbors');
 
-
+      // Function to load and display connected neighbors
       function loadConnectedNeighbors() {
+        // Retrieve connected neighbors from localStorage
         const neighbors = JSON.parse(localStorage.getItem(`connectedNeighbors_${currentUser}`)) || [];
         connectedNeighborsDiv.innerHTML = '';
 
-
+        // Display a message if there are no connections
         if (neighbors.length === 0) {
           connectedNeighborsDiv.innerHTML = '<p>No connections yet.</p>';
           return;
         }
 
-
-        // Sort neighbors in descending order (assuming by connection date or another metric)
-        // Here, we'll just display them as they are
+        // Iterate through each neighbor and create their display elements
         neighbors.forEach((neighbor) => {
           const neighborDiv = document.createElement('div');
           neighborDiv.classList.add('neighbor-icon');
           neighborDiv.setAttribute('data-username', neighbor.username);
 
-
-          // Circular Avatar (using initials as placeholder)
+          // Create the avatar with initials
           const avatarDiv = document.createElement('div');
           avatarDiv.classList.add('avatar');
-          // Extract initials from fullName
           const initials = neighbor.fullName.split(' ').map(name => name.charAt(0)).join('');
           avatarDiv.textContent = initials;
 
-
-          // Neighbor Name
+          // Create the neighbor's name element
           const neighborName = document.createElement('span');
           neighborName.classList.add('neighbor-name');
           neighborName.textContent = neighbor.fullName;
 
-
-          // Rate Service Button
+          // Create the rate service button
           const rateButton = document.createElement('button');
           rateButton.classList.add('rate-button');
 
-
-          // Insert SVG Icon into the button
+          // Add the star icon to the rate button
           rateButton.innerHTML = `
             <i class="fas fa-star"></i>
           `;
-
 
           // Check if the current user has already rated this neighbor
           const existingRatings = JSON.parse(localStorage.getItem(`ratings_${neighbor.username}`)) || [];
           const hasRated = existingRatings.some(rating => rating.rater === currentUser);
 
-
           if (hasRated) {
-            // Indicate it's rated
+            // Style the button as rated and disable it
             rateButton.classList.add('rated');
             rateButton.disabled = true;
             rateButton.title = "You have already rated this service";
-            // Optionally, change the SVG to a filled star or different icon
           } else {
+            // Enable the rate button
             rateButton.title = "Rate this service";
-            // Button Click Event
+            // Add click event to navigate to the rating page
             rateButton.addEventListener('click', (e) => {
               e.stopPropagation(); // Prevent triggering the neighborDiv click event
               window.location.href = `rate_service.html?username=${encodeURIComponent(neighbor.username)}`;
             });
           }
 
-
-          // Append elements
+          // Append avatar, name, and rate button to the neighbor div
           neighborDiv.appendChild(avatarDiv);
           neighborDiv.appendChild(neighborName);
           neighborDiv.appendChild(rateButton);
 
-
-          // Click Handler to Navigate to Messages
+          // Add click event to navigate to the messages page
           neighborDiv.addEventListener('click', () => {
             window.location.href = `messages.html?username=${neighbor.username}`;
           });
 
-
+          // Add the neighbor div to the connected neighbors container
           connectedNeighborsDiv.appendChild(neighborDiv);
         });
       }
 
-
+      // Load connected neighbors on page load
       loadConnectedNeighbors();
 
-
-      // Listen for changes in connected neighbors (e.g., when a new neighbor is added)
+      // Listen for changes in localStorage to update connected neighbors dynamically
       window.addEventListener('storage', (event) => {
         if (event.key === `connectedNeighbors_${currentUser}` || event.key.startsWith('ratings_')) {
           loadConnectedNeighbors();
         }
       });
 
-
-      // Logout Functionality
+      // Define the logout function to clear user data and redirect to login
       window.logout = function() {
         localStorage.removeItem('currentUser');
         window.location.href = 'login.html';
       };
 
-
-      // Sidebar Toggle Functionality
+      // Define the function to toggle the sidebar visibility
       window.toggleSidebar = function() {
         const sidebar = document.getElementById('neighbors-sidebar');
         const mainContainer = document.getElementById('main-container');
