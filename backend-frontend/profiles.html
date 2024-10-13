@@ -3,51 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>Find Neighbors | Skill Exchange Platform</title>
-  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     crossorigin=""
   />
   <style>
-    /* Background Style with Cityscape Image and Tint */
+    /* Style the body with a background image, gradient tint, and center content */
     body {
-  /* Add a linear gradient as the first background layer for the tint */
-  background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.5), /* Adjust the color and opacity here */
-      rgba(0, 0, 0, 0.5)
-    ),
-    url('backgroundd.jpg') no-repeat center center fixed;
-  
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+      background: 
+        linear-gradient(
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        ),
+        url('backgroundd.jpg') no-repeat center center fixed;
+      
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-    /* Map Container Style */
+    /* Style the map container with specific dimensions and visual effects */
     #map {
-      height: 650px; /* Reduced height */
-      width: 1200px;  /* Reduced width */
-      border: 5px solid black; /* Black frame around the map */
+      height: 650px;
+      width: 1200px;
+      border: 5px solid black;
       position: relative;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
       border-radius: 20px;
     }
 
-    /* Back to Dashboard Button */
+    /* Style the back-to-dashboard button with positioning and interactivity */
     .back-button {
       position: absolute;
       top: 10px;
       right: 10px;
       z-index: 1000;
-      padding: 10px 20px; /* Adjusted padding for smaller map */
-      font-size: 1em;      /* Adjusted font size */
+      padding: 10px 20px;
+      font-size: 1em;
       color: #fff;
       background-color: #ff6f61;
       border: none;
@@ -56,36 +54,39 @@
       transition: background-color 0.3s;
     }
 
+    /* Change the background color of the back button on hover */
     .back-button:hover {
       background-color: #1abc9c;
     }
 
-    /* Search Box */
+    /* Style the search box with positioning, layout, and visual enhancements */
     .search-box {
       position: absolute;
       top: 10px;
       left: 60px;
       z-index: 1000;
-      padding: 8px 12px; /* Adjusted padding */
-      background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
     }
 
+    /* Style the input field within the search box */
     .search-box input {
-      width: 150px; /* Reduced width */
+      width: 150px;
       padding: 5px;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 0.9em;
       border: 1px solid #ccc;
       border-radius: 3px;
-      margin-right: 8px; /* Adjusted margin */
+      margin-right: 8px;
     }
 
+    /* Style the search button within the search box */
     .search-box button {
-      padding: 8px 16px; /* Adjusted padding */
-      font-size: 1em;     /* Adjusted font size */
+      padding: 8px 16px;
+      font-size: 1em;
       color: #fff;
       background-color: #007bff;
       border: none;
@@ -94,33 +95,39 @@
       transition: background-color 0.3s;
     }
 
+    /* Change the background color of the search button on hover */
     .search-box button:hover {
       background-color: #0056b3;
     }
 
+    /* Style the category toggle section */
     .category-toggle {
-      margin-left: 15px; /* Adjusted margin */
-      font-size: 0.9em;   /* Reduced font size */
+      margin-left: 15px;
+      font-size: 0.9em;
       cursor: pointer;
     }
 
+    /* Style individual category toggle spans */
     .category-toggle span {
-      padding: 0 10px; /* Reduced padding */
+      padding: 0 10px;
       cursor: pointer;
     }
 
+    /* Highlight the selected category toggle */
     .category-toggle span.selected {
       font-weight: bold;
       text-decoration: underline;
     }
 
-    /* Responsive Adjustments */
+    /* Responsive styles for screens with a maximum width of 850px */
     @media (max-width: 850px) {
+      /* Adjust the map size for smaller screens */
       #map {
         width: 90%;
         height: 500px;
       }
 
+      /* Reposition and restructure the search box for smaller screens */
       .search-box {
         top: 70px;
         left: 10px;
@@ -128,12 +135,14 @@
         align-items: flex-start;
       }
 
+      /* Adjust the input field within the search box for smaller screens */
       .search-box input {
         width: 100%;
         margin-right: 0;
         margin-bottom: 5px;
       }
 
+      /* Remove left margin from the category toggle on smaller screens */
       .category-toggle {
         margin-left: 0;
       }
@@ -141,11 +150,8 @@
   </style>
 </head>
 <body>
-  <!-- Map Container -->
   <div id="map">
-    <!-- Back to Dashboard Button on Map -->
     <button class="back-button" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
-    <!-- Search Box -->
     <div class="search-box">
       <input type="text" id="skill-search" placeholder="Search for a skill...">
       <button onclick="filterMarkers()">Search</button>
@@ -156,41 +162,39 @@
     </div>
   </div>
 
-  <!-- Leaflet JS -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     crossorigin=""
   ></script>
-  <!-- Custom Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       let map;
       let markers = [];
       let currentCategory = 'offered';
 
-      // Function to initialize the map with given coordinates
+      // Initialize the map centered on the user's location
       function initializeMap(currentLat, currentLon) {
-        // Initialize the map centered on the user's current location
         map = L.map('map').setView([currentLat, currentLon], 13);
 
-        // Add OpenStreetMap tiles
+        // Add OpenStreetMap tiles to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add a marker for the current user
+        // Define a custom icon for the user's marker
         const userIcon = L.icon({
           iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
           iconSize: [32, 32],
           iconAnchor: [16, 32],
         });
 
+        // Add a marker for the user's current location
         L.marker([currentLat, currentLon], { icon: userIcon })
           .addTo(map)
           .bindPopup('You are here')
           .openPopup();
 
-        // Hardcoded nearby profiles
+        // Define an array of nearby user profiles
         const profiles = [
           {
             username: "user1",
@@ -362,27 +366,25 @@
           },
         ];
 
-        // Add each nearby profile as a marker on the map
+        // Add a marker for each nearby profile on the map
         profiles.forEach((profile) => {
-          // Add marker to the map for each nearby user
           const marker = L.marker([profile.latitude, profile.longitude])
             .addTo(map)
             .bindPopup(
               `<strong>${profile.fullName}</strong><br>${profile.skillsOffered}`
             );
 
-          // Store marker details
           marker.profile = profile;
           markers.push(marker);
 
-          // On click, redirect to profile.html with query parameters
+          // Redirect to the user's profile page when their marker is clicked
           marker.on('click', () => {
             window.location.href = `profile.html?username=${profile.username}`;
           });
         });
       }
 
-      // Try to get the user's location via Geolocation API
+      // Attempt to get the user's current location using the Geolocation API
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -392,31 +394,32 @@
           },
           (error) => {
             console.error('Error getting location:', error);
-            // If error, fall back to fixed coordinates
+            // Use default coordinates if location access fails
             alert('Unable to access your location. Using default location.');
-            const currentLat = 43.6055; // Latitude of 50 Bristol Rd W, Mississauga, ON
-            const currentLon = -79.6968; // Longitude of 50 Bristol Rd W, Mississauga, ON
+            const currentLat = 43.6055;
+            const currentLon = -79.6968;
             initializeMap(currentLat, currentLon);
           }
         );
       } else {
+        // Use default coordinates if Geolocation is not supported
         alert('Geolocation is not supported by your browser. Using default location.');
-        const currentLat = 43.6055; // Latitude of 50 Bristol Rd W, Mississauga, ON
-        const currentLon = -79.6968; // Longitude of 50 Bristol Rd W, Mississauga, ON
+        const currentLat = 43.6055;
+        const currentLon = -79.6968;
         initializeMap(currentLat, currentLon);
       }
 
-      // Function to filter markers based on skill
+      // Function to filter map markers based on the user's search input
       window.filterMarkers = function () {
         const searchValue = document.getElementById('skill-search').value.toLowerCase();
 
         if (searchValue === "") {
-          // If the search value is empty, show all markers
+          // Display all markers if the search input is empty
           markers.forEach((marker) => {
             marker.addTo(map);
           });
         } else {
-          // Loop through all markers and display only those that match the selected category and skill search
+          // Display only markers that match the search criteria
           markers.forEach((marker) => {
             const profile = marker.profile;
             const skillsToSearch = currentCategory === 'offered' ? profile.skillsOffered.toLowerCase() : profile.skillsWanted.toLowerCase();
@@ -430,20 +433,22 @@
         }
       };
 
-      // Function to set the current category (skills offered or skills wanted)
+      // Function to set the current category (Skills Offered or Skills Wanted)
       window.setCategory = function (category) {
         currentCategory = category;
 
+        // Remove the 'selected' class from both category toggles
         document.getElementById('skills-offered').classList.remove('selected');
         document.getElementById('skills-wanted').classList.remove('selected');
 
+        // Add the 'selected' class to the chosen category toggle
         if (category === 'offered') {
           document.getElementById('skills-offered').classList.add('selected');
         } else {
           document.getElementById('skills-wanted').classList.add('selected');
         }
 
-        // Re-run the filter to update the markers
+        // Reapply the marker filter based on the new category
         filterMarkers();
       };
     });
