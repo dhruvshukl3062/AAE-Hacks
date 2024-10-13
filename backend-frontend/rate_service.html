@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <title>Rate Service | Skill Exchange Platform</title>
   
-  <!-- Google Fonts -->
+  <!-- Link to Google Fonts for typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap"
     rel="stylesheet"
   >
 
-  <!-- Font Awesome for Icons (if needed) -->
+  <!-- Link to Font Awesome for icon usage -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -21,223 +21,235 @@
   />
   
   <style>
-    /* Reusing styles from the Dashboard */
-
+    /* Define CSS variables for consistent theming */
     :root {
-      --primary-color: #1e1e1e;        /* Dark gray for text and accents */
-      --secondary-color: #ffffff;      /* White for backgrounds */
-      --accent-color: #ff6f61;         /* Modern accent color */
-      --text-color: #333333;           /* Dark gray for general text */
-      --background-color: #ffffff;     /* White background */
-      --button-border-color: #b71c1c;  /* Red color for button border */
-      --button-hover-bg: #b71c1c;      /* Red color for button hover background */
-      --button-hover-text: #ffffff;    /* White text on hover */
+      --primary-color: #1e1e1e;
+      --secondary-color: #ffffff;
+      --accent-color: #ff6f61;
+      --text-color: #333333;
+      --background-color: #ffffff;
+      --button-border-color: #b71c1c;
+      --button-hover-bg: #b71c1c;
+      --button-hover-text: #ffffff;
     }
     
-    /* Reset and Base Styles */
+    /* Reset default margins and paddings for all elements */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    /* Set base styles for html and body elements */
     html, body {
       height: 100%;
       font-family: 'Open Sans', sans-serif;
-      background: white; /* Clean white background */
+      background: white;
       display: flex;
       flex-direction: column;
     }
 
+    /* Style the navigation bar */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: var(--secondary-color); /* Changed to white */
-      padding: 15px 30px; /* Increased horizontal padding */
+      background-color: var(--secondary-color);
+      padding: 15px 30px;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Added subtle shadow for depth */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
     
+    /* Style the logo within the navigation bar */
     nav .logo a {
-      color: var(--primary-color); /* Changed to dark text */
+      color: var(--primary-color);
       font-weight: bold;
       font-size: 24px;
       text-decoration: none;
     }
     
+    /* Style the menu icon for smaller screens */
     nav .menu-icon {
       display: none;
       flex-direction: column;
       cursor: pointer;
     }
     
+    /* Style the bars within the menu icon */
     nav .menu-icon .bar {
       width: 25px;
       height: 3px;
-      background-color: var(--primary-color); /* Changed to dark color */
+      background-color: var(--primary-color);
       margin: 4px 0;
     }
     
+    /* Style the navigation links */
     nav .nav-links {
       display: flex;
     }
     
+    /* Style individual navigation links */
     nav .nav-links a {
-      color: var(--primary-color); /* Changed to dark text */
+      color: var(--primary-color);
       font-weight: bold;
       margin-left: 20px;
       text-decoration: none;
       transition: color 0.3s;
     }
     
+    /* Change color of navigation links on hover */
     nav .nav-links a:hover {
       color: var(--accent-color);
     }
 
-    /* Sidebar Styling */
+    /* Style the sidebar for connected neighbors */
     .sidebar {
       height: 100%;
       width: 200px;
       position: fixed;
       top: 0;
-      left: -250px; /* Hidden by default */
+      left: -250px;
       background-color: #f4f4f4;
       box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-      padding-top: 60px; /* Space for the nav bar */
+      padding-top: 60px;
       transition: left 0.3s ease;
       overflow-y: auto;
-      z-index: 1001; /* Below the nav bar */
+      z-index: 1001;
     }
 
+    /* Display the sidebar when it has the 'open' class */
     .sidebar.open {
       left: 0;
     }
 
+    /* Style the heading within the sidebar */
     .sidebar h3 {
       text-align: center;
       color: #333;
       margin-bottom: 20px;
-      border-bottom: 2px solid #ccc; /* Underline */
+      border-bottom: 2px solid #ccc;
       padding-bottom: 50px;
       position: relative;
       overflow: hidden;
-      font-family: 'Roboto', sans-serif; /* Applied Roboto font */
+      font-family: 'Roboto', sans-serif;
     }
 
-    /* Main Container Styling */
+    /* Style the main container that holds the form */
     .container {
       flex: 1;
-      padding: 100px 20px 120px 20px; /* Increased top and bottom padding */
+      padding: 100px 20px 120px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-left: 0; /* Adjusted for sidebar */
+      margin-left: 0;
       transition: margin-left 0.3s ease;
     }
 
+    /* Shift the main container when the sidebar is open */
     .container.shifted {
-      margin-left: 250px; /* Width of the sidebar */
+      margin-left: 250px;
     }
 
-    /* Form Container Styling */
+    /* Style the form container */
     .form-container {
-      background-color: #ffffff; /* White background */
-      padding: 40px; /* Increased padding */
-      border-radius: 8px; /* Clean border-radius */
-      box-shadow: 0 0 2px 4px rgba(134, 20, 20, 0.3); /* Subtle shadow */
-      max-width: 600px; /* Increased max-width */
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 2px 4px rgba(134, 20, 20, 0.3);
+      max-width: 600px;
       width: 100%;
       position: relative;
       z-index: 1;
     }
 
+    /* Style the heading within the form container */
     .form-container h2 {
-      color: #b71c1c; /* Deep red color for headings */
+      color: #b71c1c;
       margin-bottom: 20px;
       font-size: 28px;
       text-align: center;
       font-family: 'Roboto', sans-serif;
     }
 
-    /* Form Styling */
+    /* Style the form element */
     form {
       display: flex;
       flex-direction: column;
-      align-items: stretch; /* Changed from flex-start to stretch for full-width elements */
+      align-items: stretch;
       width: 100%;
-      max-width: 500px; /* Set a max-width for better layout */
-      margin: 0 auto; /* Center the form horizontally */
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    /* Form Group Styling */
+    /* Style each form group */
     .form-group {
       width: 100%;
-      margin-bottom: 20px; /* Consistent spacing between form groups */
+      margin-bottom: 20px;
       display: flex;
-      flex-direction: column; /* Stack label and input vertically */
+      flex-direction: column;
     }
 
-    /* Label Styling */
+    /* Style labels within form groups */
     .form-group label {
-      margin-bottom: 8px; /* Increased space between label and input */
+      margin-bottom: 8px;
       color: #555;
       font-weight: 600;
       font-size: 14px;
       font-family: 'Open Sans', sans-serif;
     }
 
-    /* Input and Select Styling */
+    /* Style input, select, and textarea elements within form groups */
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 10px 12px; /* Increased padding for better usability */
-      border: 2px solid #ccc; /* Enhanced border for better visibility */
-      border-radius: 4px; /* Slight rounding for aesthetics */
-      background-color: #f9f9f9; /* Light background for inputs */
+      padding: 10px 12px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
       font-size: 14px;
       font-family: 'Open Sans', sans-serif;
       transition: border-color 0.3s, box-shadow 0.3s;
       box-sizing: border-box;
     }
 
-    /* Specific styles for textarea to adjust placeholder alignment */
+    /* Additional styles for textarea elements */
     .form-group textarea {
-      padding-top: 10px; /* Reset padding-top */
-      line-height: 1.5; /* Ensure consistent line height */
-      height: 100px; /* Set a fixed height to control the overall size */
-      resize: vertical; /* Allow vertical resizing */
+      padding-top: 10px;
+      line-height: 1.5;
+      height: 100px;
+      resize: vertical;
     }
 
-    /* Focus Effects for Inputs */
+    /* Styles when input, select, or textarea elements are focused */
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #b71c1c; /* Deep red on focus */
-      box-shadow: 0 0 5px rgba(183, 28, 28, 0.5); /* Subtle shadow on focus */
+      border-color: #b71c1c;
+      box-shadow: 0 0 5px rgba(183, 28, 28, 0.5);
     }
 
-    /* Placeholder Styling */
+    /* Style placeholders within input, select, and textarea elements */
     .form-group input::placeholder,
     .form-group select::placeholder,
     .form-group textarea::placeholder {
       color: #aaa;
-      opacity: 1; /* Fully opaque */
+      opacity: 1;
     }
 
-    /* Submit Button Styling */
+    /* Style the container holding the submit button */
     .form-group.button-container {
       display: flex;
-      justify-content: center; /* Center the button */
+      justify-content: center;
     }
 
+    /* Style the submit button */
     .submit-button {
-      padding: 12px 24px; /* Increased padding for a larger clickable area */
-      background-color: #b71c1c; /* Primary red color */
+      padding: 12px 24px;
+      background-color: #b71c1c;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -251,11 +263,12 @@
       justify-content: center;
     }
 
+    /* Change the background color of the submit button on hover */
     .submit-button:hover {
-      background-color: #ff6f61; /* Lighter red on hover */
+      background-color: #ff6f61;
     }
 
-    /* Notification Styling */
+    /* Style notification messages */
     .notification {
       margin-top: 15px;
       padding: 10px;
@@ -264,17 +277,19 @@
       display: none;
     }
 
+    /* Style success notifications */
     .notification.success {
       background-color: #2ecc71;
       color: #fff;
     }
 
+    /* Style error notifications */
     .notification.error {
       background-color: #e74c3c;
       color: #fff;
     }
 
-    /* Responsive adjustments */
+    /* Responsive styles for medium screens */
     @media (max-width: 1200px) {
       .sidebar {
         width: 200px;
@@ -284,6 +299,7 @@
       }
     }
 
+    /* Responsive styles for smaller screens */
     @media (max-width: 800px) {
       .sidebar {
         width: 180px;
@@ -293,6 +309,7 @@
       }
     }
 
+    /* Responsive styles for mobile devices */
     @media (max-width: 600px) {
       .sidebar {
         width: 150px;
@@ -330,7 +347,6 @@
     </div>
   </nav>
 
-  <!-- Sidebar for Connected Neighbors -->
   <div class="sidebar" id="neighbors-sidebar">
     <h3>Connected <br> Neighbors</h3>
     <div class="connected-neighbors" id="connected-neighbors">
@@ -338,13 +354,10 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <div class="container" id="main-container">
-    <!-- Form Container -->
     <div class="form-container">
       <h2>Rate Service for <span id="neighbor-name">Neighbor</span></h2>
       <form id="rating-form">
-        <!-- Communication Rating -->
         <div class="form-group">
           <label for="communication">Communication:</label>
           <select id="communication" required>
@@ -357,7 +370,6 @@
           </select>
         </div>
 
-        <!-- Reliability Rating -->
         <div class="form-group">
           <label for="reliability">Reliability:</label>
           <select id="reliability" required>
@@ -370,7 +382,6 @@
           </select>
         </div>
 
-        <!-- Professionalism Rating -->
         <div class="form-group">
           <label for="professionalism">Professionalism:</label>
           <select id="professionalism" required>
@@ -383,7 +394,6 @@
           </select>
         </div>
 
-        <!-- Overall Experience Rating -->
         <div class="form-group">
           <label for="overall">Overall Experience:</label>
           <select id="overall" required>
@@ -396,13 +406,11 @@
           </select>
         </div>
 
-        <!-- Additional Comments -->
         <div class="form-group">
           <label for="comments">Additional Comments:</label>
           <textarea id="comments" rows="4" placeholder="Write your comments here..."></textarea>
         </div>
 
-        <!-- Submit Button -->
         <div class="form-group button-container">
           <button type="submit" class="submit-button">
             <i class="fas fa-star"></i> Submit Rating
@@ -413,23 +421,22 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     &copy; 2023 Skill Exchange Platform
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Retrieve currentUser from localStorage
+      /* Retrieve the currently logged-in user from localStorage */
       const currentUser = localStorage.getItem('currentUser');
 
+      /* Redirect to login page if no user is logged in */
       if (!currentUser) {
-        // If no user is logged in, redirect to login page
         window.location.href = 'login.html';
         return;
       }
 
-      // Get neighbor username from URL
+      /* Get the neighbor's username from the URL parameters */
       const urlParams = new URLSearchParams(window.location.search);
       const neighborUsername = urlParams.get('username');
       if (!neighborUsername) {
@@ -438,8 +445,9 @@
         return;
       }
 
-      // Get neighbor's full name for display
+      /* Retrieve the list of connected neighbors from localStorage */
       const neighbors = JSON.parse(localStorage.getItem(`connectedNeighbors_${currentUser}`)) || [];
+      /* Find the neighbor to be rated */
       const neighbor = neighbors.find(n => n.username === neighborUsername);
       if (!neighbor) {
         alert('Specified user is not in your connected neighbors.');
@@ -447,30 +455,30 @@
         return;
       }
 
-      // Display neighbor's name
+      /* Display the neighbor's full name in the form */
       document.getElementById('neighbor-name').textContent = neighbor.fullName;
 
-      // Handle form submission
+      /* Handle the form submission for rating */
       const ratingForm = document.getElementById('rating-form');
       const notification = document.getElementById('notification');
 
       ratingForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Get rating values
+        /* Retrieve and parse rating values from the form */
         const communication = parseInt(document.getElementById('communication').value);
         const reliability = parseInt(document.getElementById('reliability').value);
         const professionalism = parseInt(document.getElementById('professionalism').value);
         const overall = parseInt(document.getElementById('overall').value);
         const comments = document.getElementById('comments').value.trim();
 
-        // Validate ratings
+        /* Validate that all ratings are between 1 and 5 */
         if (![communication, reliability, professionalism, overall].every(r => r >=1 && r <=5)) {
           showNotification('Please provide valid ratings for all questions.', 'error');
           return;
         }
 
-        // Create rating object
+        /* Create a rating object with the collected data */
         const rating = {
           rater: currentUser,
           communication,
@@ -481,32 +489,33 @@
           date: new Date().toISOString()
         };
 
-        // Retrieve existing ratings for the neighbor
+        /* Retrieve existing ratings for the neighbor from localStorage */
         const existingRatings = JSON.parse(localStorage.getItem(`ratings_${neighborUsername}`)) || [];
         
-        // Check if the current user has already rated this neighbor
+        /* Check if the current user has already rated this neighbor */
         const alreadyRated = existingRatings.find(r => r.rater === currentUser);
         if (alreadyRated) {
           showNotification('You have already rated this user.', 'error');
           return;
         }
 
-        // Add new rating
+        /* Add the new rating to the existing ratings array */
         existingRatings.push(rating);
         localStorage.setItem(`ratings_${neighborUsername}`, JSON.stringify(existingRatings));
 
-        // Show success notification
+        /* Display a success notification to the user */
         showNotification('Thank you for your feedback!', 'success');
 
-        // Redirect back to dashboard after a short delay
+        /* Redirect the user back to the dashboard after a short delay */
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 2000);
       });
 
+      /* Function to display notification messages */
       function showNotification(message, type = 'success') {
         notification.textContent = message;
-        notification.className = 'notification'; // Reset classes
+        notification.className = 'notification';
         if (type === 'error') {
           notification.classList.add('error');
         } else {
@@ -514,13 +523,13 @@
         }
         notification.style.display = 'block';
 
-        // Hide after 3 seconds
+        /* Automatically hide the notification after 3 seconds */
         setTimeout(() => {
           notification.style.display = 'none';
         }, 3000);
       }
 
-      // Sidebar and Navigation Logic (if needed)
+      /* Handle the toggling of the navigation menu */
       const menuIcon = document.querySelector('.menu-icon');
       const navLinks = document.getElementById('navLinks');
 
@@ -528,6 +537,7 @@
         navLinks.classList.toggle('open');
       };
 
+      /* Handle user logout by clearing localStorage and redirecting to login page */
       window.logout = function() {
         localStorage.removeItem('currentUser');
         window.location.href = 'login.html';
