@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <title>Login | Skill Exchange Platform</title>
   
-  <!-- Google Fonts -->
+  <!-- Load Google Fonts for typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Removed Font Awesome Link -->
-  
   <style>
+    /* Reset default margins, paddings, and box-sizing */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Set base styles for the body */
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f0f0f0;
@@ -26,6 +26,7 @@
       justify-content: center;
     }
 
+    /* Style the container holding the login form */
     .form-container {
       max-width: 600px;
       width: 90%;
@@ -38,14 +39,16 @@
       padding-bottom: 80px;
     }
 
+    /* Style the Skill Exchange trademark text */
     .skill-exchange {
-      font-size: 24px; /* Slightly increased for better prominence */
-      font-weight: bold; /* Made it bold */
-      color: #000; /* Keeping original color */
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
       margin-bottom: 10px;
       position: relative;
     }
 
+    /* Style the greeting carousel text */
     .greeting-text {
       font-size: 50px;
       font-weight: bold;
@@ -58,28 +61,32 @@
       position: relative;
     }
 
+    /* Style individual greeting messages */
     .greeting-text span {
       position: absolute;
       opacity: 0;
       transition: opacity 1s ease;
     }
 
+    /* Show the active greeting message */
     .greeting-text span.active {
       opacity: 1;
     }
 
+    /* Style the container for each input field */
     .input-container {
       position: relative;
       margin-bottom: 40px;
       overflow: hidden;
     }
 
+    /* Style the input fields */
     .input-container input {
       width: 100%;
       border: none;
       border-bottom: 2px solid #e9e3e3;
       font-size: 15px;
-      padding: 12px 50px 12px 40px; /* Adjusted padding to accommodate smaller icons */
+      padding: 12px 50px 12px 40px;
       outline: none;
       color: #333;
       background: none;
@@ -88,6 +95,7 @@
       position: relative;
     }
 
+    /* Style the animated underline for input fields */
     .input-container::after {
       content: '';
       position: absolute;
@@ -99,43 +107,49 @@
       transition: width .7s ease;
     }
 
+    /* Expand the underline when input is focused or active */
     .input-container:focus-within::after,
     .input-container.active::after {
       width: 100%;
     }
 
+    /* Hide the placeholder text */
     .input-container input::placeholder {
       color: transparent;
     }
 
+    /* Style the labels for input fields */
     .input-container label {
       position: absolute;
       top: 12px;
-      left: 40px; /* Adjusted to make space for the icon */
+      left: 40px;
       font-size: 16px;
       color: #aaa;
       pointer-events: none;
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
+    /* Hide labels when input is focused or has valid input */
     .input-container input:focus + label,
     .input-container input:valid + label {
       opacity: 0;
       visibility: hidden;
     }
 
+    /* Style the SVG icons inside input containers */
     .input-container .input-icon {
       position: absolute;
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
       color: #999;
-      width: 18px; /* Made icons smaller */
-      height: 18px; /* Made icons smaller */
-      fill: #999; /* Ensures the SVG path is colored correctly */
+      width: 18px;
+      height: 18px;
+      fill: #999;
       pointer-events: none;
     }
 
+    /* Style the eye icon for toggling password visibility */
     .input-container .view-password {
       position: absolute;
       right: 10px;
@@ -143,16 +157,18 @@
       transform: translateY(-50%);
       cursor: pointer;
       color: #999;
-      width: 18px; /* Made icons smaller */
-      height: 18px; /* Made icons smaller */
+      width: 18px;
+      height: 18px;
       fill: #999;
       transition: fill 0.3s;
     }
 
+    /* Change color of eye icon on hover */
     .input-container .view-password:hover {
       fill: #555;
     }
 
+    /* Style the container holding the submit button */
     .bottom-container {
       position: absolute;
       bottom: 0px;
@@ -163,19 +179,21 @@
       padding: 15px 25px;
       border-radius: 2px;
       display: flex;
-      justify-content: center; /* Center the button */
+      justify-content: center;
       align-items: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       height: 55px;
       transition: background-color 0.3s;
     }
 
+    /* Change background color when active */
     .bottom-container.active {
       background-color: red;
     }
 
+    /* Style the submit button */
     .bottom-container button {
-      padding: 12px 24px; /* Adjusted padding for better click area */
+      padding: 12px 24px;
       font-size: 15px;
       background-color: #d3d3d3;
       border: none;
@@ -183,18 +201,21 @@
       cursor: pointer;
       color: #adabab;
       transition: background-color 0.3s, color 0.3s, transform 0.3s;
-      font-weight: 600; /* Slightly bolder text */
+      font-weight: 600;
     }
 
+    /* Change button appearance when active */
     .bottom-container.active button {
       background-color: red;
       color: white;
     }
 
+    /* Add hover effect to the submit button */
     .bottom-container button:hover {
       transform: scale(1.05);
     }
 
+    /* Style the notification messages */
     .notification {
       display: none;
       position: fixed;
@@ -208,6 +229,7 @@
       z-index: 1000;
     }
 
+    /* Style error notifications */
     .notification.error {
       background-color: #e74c3c;
     }
@@ -215,105 +237,127 @@
 </head>
 <body>
 
+  <!-- Container holding the login form and related elements -->
   <div class="form-container">
+    <!-- Display the Skill Exchange trademark -->
     <div class="skill-exchange">Skill Exchange™</div>
+    
+    <!-- Carousel for rotating greeting messages -->
     <div id="greeting-carousel" class="greeting-text">
       <span class="active">Hello, User!</span>
       <span>Welcome, Friend!</span>
       <span>Glad to see you!</span>
     </div>
+    
+    <!-- Login form -->
     <form id="login-form">
+      <!-- Username input field with icon and label -->
       <div class="input-container">
-        <!-- User SVG Icon -->
         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
           <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm89.6 32h-16.7a174.1 174.1 0 0 1-145.8 0h-16.7A134.4 134.4 0 0 0 0 422.4V464a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48v-41.6A134.4 134.4 0 0 0 313.6 288z"/>
         </svg>
         <input type="text" name="username" id="username" required autocomplete="username" placeholder="" />
         <label for="username">Username</label>
       </div>
+      
+      <!-- Password input field with icon, label, and toggle visibility -->
       <div class="input-container">
-        <!-- Updated Lock SVG Icon (Fully Gray) -->
         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
           <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM128 152c0-53 43-96 96-96s96 43 96 96v72H128v-72zm224 304c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h352c8.8 0 16 7.2 16 16v184z" fill="#999"/>
         </svg>
         <input type="password" name="password" id="password" required autocomplete="current-password" placeholder="" />
         <label for="password">Password</label>
-        <!-- Eye SVG Icon for Viewing Password -->
+        <!-- Icon to toggle password visibility -->
         <svg class="view-password" id="toggle-icon" onclick="togglePassword()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-label="Toggle Password Visibility" role="img">
           <path d="M572.52 241.4C518.6 135.5 407.4 64 288 64S57.4 135.5 3.48 241.4a48.32 48.32 0 0 0 0 29.2C57.4 376.5 168.6 448 288 448s230.6-71.5 284.52-177.4a48.32 48.32 0 0 0 0-29.2zM288 400c-97 0-176-54.9-224-144 48-89.1 127-144 224-144s176 54.9 224 144c-48 89.1-127 144-224 144zm0-240a96 96 0 1 0 96 96 96.11 96.11 0 0 0-96-96zm0 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         </svg>
       </div>
     </form>
+    
+    <!-- Container for the sign-in button -->
     <div class="bottom-container">
       <button type="submit" form="login-form">Sign In</button>
     </div>
   </div>
 
+  <!-- Notification element for displaying messages -->
   <div id="notification" class="notification"></div>
 
   <script>
+    // Array of greeting messages for the carousel
     const greetings = ["Hello, User!", "Welcome, Friend!", "Glad to see you!"];
     let currentGreetingIndex = 0;
     const greetingElement = document.getElementById('greeting-carousel');
     const greetingSpans = greetingElement.getElementsByTagName('span');
 
+    // Function to rotate greeting messages
     function rotateGreeting() {
       greetingSpans[currentGreetingIndex].classList.remove('active');
       currentGreetingIndex = (currentGreetingIndex + 1) % greetings.length;
       greetingSpans[currentGreetingIndex].classList.add('active');
     }
 
+    // Set interval to change greetings every 3 seconds
     setInterval(rotateGreeting, 3000);
 
+    // Function to toggle password visibility
     function togglePassword() {
       const passwordField = document.getElementById('password');
       const toggleIcon = document.getElementById('toggle-icon');
       if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        // Change to eye-slash icon
+        // Change to eye-slash icon by updating SVG path
         toggleIcon.innerHTML = `
-          <path d="M320 400h-192c-35.3 0-64-28.7-64-64V176c0-35.3 28.7-64 64-64h192c35.3 0 64 28.7 64 64v160c0 35.3-28.7 64-64 64zm-192-288c-17.7 0-32 14.3-32 32v160c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32V176c0-17.7-14.3-32-32-32H128zm192 160a64 64 0 1 1-64-64 64.07 64.07 0 0 1 64 64z"/>
+          <path d="M320 400h-192c-35.3 0-64-28.7-64-64V176c0-35.3 28.7-64 64-64h192c35.3 0 64 28.7 64 64v160c0 35.3-28.7 64-64 64zm-192-288c-17.7 0-32 14.3-32 32v160c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32V176c0-17.7-14.3-32-32-32H128zm192 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         `;
       } else {
         passwordField.type = 'password';
-        // Change back to eye icon
+        // Change back to eye icon by restoring original SVG path
         toggleIcon.innerHTML = `
           <path d="M572.52 241.4C518.6 135.5 407.4 64 288 64S57.4 135.5 3.48 241.4a48.32 48.32 0 0 0 0 29.2C57.4 376.5 168.6 448 288 448s230.6-71.5 284.52-177.4a48.32 48.32 0 0 0 0-29.2zM288 400c-97 0-176-54.9-224-144 48-89.1 127-144 224-144s176 54.9 224 144c-48 89.1-127 144-224 144zm0-240a96 96 0 1 0 96 96 96.11 96.11 0 0 0-96-96zm0 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         `;
       }
     }
 
+    // Function to handle Google Sign-In (not implemented)
     function signInWithGoogle() {
       showNotification('Google Sign-In is not implemented yet.', 'error');
     }
 
+    // Event listener for form submission
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
 
+      // Validate input fields
       if (!username || !password) {
         showNotification('Please enter both username and password.', 'error');
         return;
       }
 
+      // Retrieve users from localStorage
       const users = JSON.parse(localStorage.getItem('users')) || [];
       const user = users.find(u => u.username === username);
 
+      // Check if user exists
       if (!user) {
         showNotification('Username does not exist. Please register first.', 'error');
         return;
       }
 
+      // Validate password
       if (user.password !== password) {
         showNotification('Incorrect password. Please try again.', 'error');
         return;
       }
 
+      // Set current user in localStorage and redirect to dashboard
       localStorage.setItem('currentUser', username);
       window.location.href = 'dashboard.html';
     });
 
+    // Function to display notification messages
     function showNotification(message, type = 'success') {
       const notification = document.getElementById('notification');
       notification.textContent = message;
@@ -323,22 +367,26 @@
       }
       notification.style.display = 'block';
 
+      // Hide notification after 3 seconds
       setTimeout(() => {
         notification.style.display = 'none';
       }, 3000);
     }
 
+    // Function to check input activity and update UI accordingly
     function checkInputActivity() {
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
       const bottomContainer = document.querySelector('.bottom-container');
 
+      // Activate bottom container if any input is filled
       if (username !== '' || password !== '') {
         bottomContainer.classList.add('active');
       } else {
         bottomContainer.classList.remove('active');
       }
 
+      // Check each input container for active state
       const inputContainers = document.querySelectorAll('.input-container');
       inputContainers.forEach(container => {
         const input = container.querySelector('input');
@@ -350,6 +398,7 @@
       });
     }
 
+    // Add event listeners to input fields to monitor activity
     document.getElementById('username').addEventListener('input', checkInputActivity);
     document.getElementById('password').addEventListener('input', checkInputActivity);
   </script>
