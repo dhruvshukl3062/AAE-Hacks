@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Profile | Skill Exchange Platform</title>
   <style>
+    /* Set base styles for the body, including background image and centering content */
     body {
       font-family: 'Roboto', sans-serif;
       background: url('back.jpg') no-repeat center center fixed;
@@ -16,6 +17,7 @@
       position: relative;
     }
 
+    /* Add a semi-transparent overlay to darken the background image */
     body::after {
       content: "";
       position: absolute;
@@ -23,20 +25,21 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.75); /* Add tint to the background image */
+      background: rgba(0, 0, 0, 0.75);
       z-index: -1;
     }
 
-    /* Ensure the profiles-container centers its content */
+    /* Style the container holding the profile card */
     #profiles-container {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding: 20px; /* Optional: Adds some padding around the profile card */
+      padding: 20px;
       box-sizing: border-box;
     }
 
+    /* Style the profile card */
     .profile-card {
       max-width: 600px;
       width: 100%;
@@ -46,23 +49,25 @@
       background: #f4f4f4;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       text-align: center;
-      /* Removed margin-bottom: 20px; since it's centered */
       position: relative;
       font-family: 'Roboto', sans-serif;
-      box-sizing: border-box; /* Ensure padding doesn't exceed max-width */
+      box-sizing: border-box;
     }
 
+    /* Style the profile title */
     .profile-card h2 {
       margin-top: 0;
       font-size: 2em;
       color: #333;
     }
 
+    /* Style the profile description paragraphs */
     .profile-card p {
       font-size: 1.1em;
       color: #555;
     }
 
+    /* Style the container for action buttons */
     .button-container {
       display: flex;
       justify-content: center;
@@ -70,15 +75,16 @@
       margin-top: 20px;
       flex-wrap: wrap;
       width: 100%;
-      margin-bottom: 10px; /* Added spacing below the buttons */
+      margin-bottom: 10px;
     }
 
+    /* Style the invite and back-to-map buttons */
     .invite-button, .back-to-map-button {
       padding: 10px 20px;
       font-size: 1em;
-      color: #ff6f61; /* Orange text */
-      background-color: transparent; /* Transparent background */
-      border: 2px solid #ff6f61; /* Orange border */
+      color: #ff6f61;
+      background-color: transparent;
+      border: 2px solid #ff6f61;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
@@ -87,12 +93,13 @@
       gap: 8px;
     }
 
+    /* Change button appearance on hover */
     .invite-button:hover, .back-to-map-button:hover {
-      background-color: #ff6f61; /* Orange background on hover */
-      color: #ffffff; /* White text on hover */
+      background-color: #ff6f61;
+      color: #ffffff;
     }
 
-    /* Modal Styling */
+    /* Style the modal for sending invites */
     .modal {
       display: none;
       position: fixed;
@@ -104,6 +111,7 @@
       background: rgba(0, 0, 0, 0.5);
     }
 
+    /* Style the content inside the modal */
     .modal-content {
       background: #fff;
       margin: 15% auto;
@@ -115,6 +123,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
+    /* Style the close button in the modal */
     .close-button {
       position: absolute;
       top: 10px;
@@ -124,6 +133,7 @@
       cursor: pointer;
     }
 
+    /* Style the send invite button inside the modal */
     .send-button {
       margin-top: 15px;
       padding: 10px 15px;
@@ -136,10 +146,12 @@
       transition: background-color 0.3s;
     }
 
+    /* Change send invite button color on hover */
     .send-button:hover {
       background-color: #27ae60;
     }
-    /* Notification styling */
+
+    /* Style the notification messages */
     .notification {
       position: fixed;
       top: 20px;
@@ -153,11 +165,12 @@
       font-family: 'Roboto', sans-serif;
     }
 
+    /* Style error notifications */
     .notification.error {
       background: #e74c3c;
     }
 
-    /* Footer styling */
+    /* Style the footer */
     footer {
       position: absolute;
       bottom: 10px;
@@ -169,7 +182,7 @@
       font-family: 'Roboto', sans-serif;
     }
 
-    /* Star Rating Styling */
+    /* Style the star rating section */
     .star-rating {
       display: flex;
       justify-content: center;
@@ -177,17 +190,19 @@
       margin-top: 10px;
     }
 
+    /* Style individual stars */
     .star {
       font-size: 24px;
       color: #ccc;
       margin: 0 2px;
     }
 
+    /* Style filled stars */
     .star.filled {
       color: #ff6f61;
     }
 
-    /* Responsive adjustments */
+    /* Responsive styles for smaller screens */
     @media (max-width: 600px) {
       .profile-card {
         padding: 20px;
@@ -196,12 +211,12 @@
   </style>
 </head>
 <body>
-  <!-- Profile Container -->
+  <!-- Container holding the profile card -->
   <div id="profiles-container">
     <!-- Profile will be dynamically inserted here -->
   </div>
 
-  <!-- Modal for Sending Invite -->
+  <!-- Modal for sending invites -->
   <div id="invite-modal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
@@ -211,229 +226,231 @@
     </div>
   </div>
 
-  <!-- Notification -->
+  <!-- Notification area for displaying messages -->
   <div id="notification" class="notification"></div>
 
-  <!-- Footer -->
+  <!-- Footer section -->
   <footer>
     &copy; 2023 Skill Exchange Platform
   </footer>
 
-  <!-- JavaScript for Handling Profile Details -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Retrieve currentUser from localStorage
+      /* Retrieve the currently logged-in user from localStorage */
       const currentUser = localStorage.getItem('currentUser');
 
+      /* Redirect to login page if no user is logged in */
       if (!currentUser) {
-        // If no user is logged in, redirect to login page
         window.location.href = 'login.html';
         return;
       }
 
-      // Hardcoded nearby profiles (for demonstration purposes)
-        // Hardcoded nearby profiles
-        const profiles = [
-          {
-            username: "user1",
-            fullName: "Alice Johnson",
-            latitude: 43.6143,
-            longitude: -79.6956,
-            skillsOffered: "Guitar Lessons, Cooking",
-            skillsWanted: "Yoga, French Language",
-            location: "Address 1, Mississauga, ON",
-            availability: "Weekends",
-            contactPreference: "Email",
-            bio: "I love sharing my skills with the community!",
-          },
-          {
-            username: "user2",
-            fullName: "Bob Smith",
-            latitude: 43.5801,
-            longitude: -79.7169,
-            skillsOffered: "Photography, Web Design",
-            skillsWanted: "Gardening, Piano",
-            location: "Address 2, Streetsville, ON",
-            availability: "Evenings",
-            contactPreference: "Phone",
-            bio: "Excited to meet new people and learn new things.",
-          },
-          {
-            username: "user3",
-            fullName: "Carol Williams",
-            latitude: 43.6043,
-            longitude: -79.6856,
-            skillsOffered: "Painting, Sewing",
-            skillsWanted: "Coding, Public Speaking",
-            location: "Address 3, Mississauga, ON",
-            availability: "Weekdays",
-            contactPreference: "Messaging",
-            bio: "Artist looking to expand my horizons.",
-          },
-          {
-            username: "user4",
-            fullName: "David Lee",
-            latitude: 43.5654,
-            longitude: -79.7320,
-            skillsOffered: "Yoga, Meditation",
-            skillsWanted: "Cooking, Guitar",
-            location: "Address 4, Riverwood Park, Mississauga, ON",
-            availability: "Mornings",
-            contactPreference: "Email",
-            bio: "Yoga instructor passionate about healthy living.",
-          },
-          {
-            username: "user5",
-            fullName: "Eve Martinez",
-            latitude: 43.5781,
-            longitude: -79.7152,
-            skillsOffered: "French Language, Baking",
-            skillsWanted: "Photography, Painting",
-            location: "Address 5, Streetsville, ON",
-            availability: "Flexible",
-            contactPreference: "Phone",
-            bio: "Language enthusiast and avid baker.",
-          },
-          {
-            username: "user6",
-            fullName: "Frank Thompson",
-            latitude: 43.6200,
-            longitude: -79.7000,
-            skillsOffered: "Carpentry, Woodworking",
-            skillsWanted: "Plumbing, Electrical Work",
-            location: "Address 6, Mississauga, ON",
-            availability: "Weekends",
-            contactPreference: "Email",
-            bio: "Love working with wood and building things from scratch.",
-          },
-          {
-            username: "user7",
-            fullName: "Grace Kim",
-            latitude: 43.5822,
-            longitude: -79.7108,
-            skillsOffered: "Piano, Violin",
-            skillsWanted: "Gardening, Spanish",
-            location: "Address 7, Streetsville, ON",
-            availability: "Evenings",
-            contactPreference: "Phone",
-            bio: "Music teacher passionate about classical instruments.",
-          },
-          {
-            username: "user8",
-            fullName: "Henry Baker",
-            latitude: 43.5598,
-            longitude: -79.7345,
-            skillsOffered: "Cooking, Bartending",
-            skillsWanted: "Sewing, Painting",
-            location: "Address 8, Riverwood Park, Mississauga, ON",
-            availability: "Weekdays",
-            contactPreference: "Messaging",
-            bio: "Chef looking to learn more about the arts.",
-          },
-          {
-            username: "user9",
-            fullName: "Isabella Green",
-            latitude: 43.6100,
-            longitude: -79.6900,
-            skillsOffered: "Graphic Design, Drawing",
-            skillsWanted: "Public Speaking, Marketing",
-            location: "Address 9, Mississauga, ON",
-            availability: "Flexible",
-            contactPreference: "Email",
-            bio: "Freelance designer eager to improve communication skills.",
-          },
-          {
-            username: "user10",
-            fullName: "Jack White",
-            latitude: 43.5621,
-            longitude: -79.7270,
-            skillsOffered: "Fitness Training, Nutrition",
-            skillsWanted: "Yoga, Meditation",
-            location: "Address 10, Riverwood Park, Mississauga, ON",
-            availability: "Mornings",
-            contactPreference: "Phone",
-            bio: "Personal trainer with a focus on a healthy lifestyle.",
-          },
-          {
-            username: "user11",
-            fullName: "Katherine Brown",
-            latitude: 43.6080,
-            longitude: -79.6950,
-            skillsOffered: "Baking, Cake Decorating",
-            skillsWanted: "Web Design, Photography",
-            location: "Address 11, Mississauga, ON",
-            availability: "Afternoons",
-            contactPreference: "Messaging",
-            bio: "Baker who loves sharing sweet creations.",
-          },
-          {
-            username: "user12",
-            fullName: "Liam Patel",
-            latitude: 43.5805,
-            longitude: -79.7160,
-            skillsOffered: "Mathematics Tutoring, Coding",
-            skillsWanted: "Public Speaking, Gardening",
-            location: "Address 12, Streetsville, ON",
-            availability: "Evenings",
-            contactPreference: "Email",
-            bio: "Math enthusiast and coder, happy to help others learn.",
-          },
-          {
-            username: "user13",
-            fullName: "Maya Singh",
-            latitude: 43.6035,
-            longitude: -79.7050,
-            skillsOffered: "Yoga, Dance",
-            skillsWanted: "Cooking, Painting",
-            location: "Address 13, Mississauga, ON",
-            availability: "Weekends",
-            contactPreference: "Phone",
-            bio: "Dance and yoga instructor ready to learn new skills.",
-          },
-          {
-            username: "user14",
-            fullName: "Noah Clark",
-            latitude: 43.5650,
-            longitude: -79.7295,
-            skillsOffered: "Gardening, Carpentry",
-            skillsWanted: "Sewing, Cooking",
-            location: "Address 14, Riverwood Park, Mississauga, ON",
-            availability: "Flexible",
-            contactPreference: "Messaging",
-            bio: "Gardener and carpenter looking to broaden my skills.",
-          },
-        ];
+      /* Array of nearby user profiles */
+      const profiles = [
+        {
+          username: "user1",
+          fullName: "Alice Johnson",
+          latitude: 43.6143,
+          longitude: -79.6956,
+          skillsOffered: "Guitar Lessons, Cooking",
+          skillsWanted: "Yoga, French Language",
+          location: "Address 1, Mississauga, ON",
+          availability: "Weekends",
+          contactPreference: "Email",
+          bio: "I love sharing my skills with the community!",
+        },
+        {
+          username: "user2",
+          fullName: "Bob Smith",
+          latitude: 43.5801,
+          longitude: -79.7169,
+          skillsOffered: "Photography, Web Design",
+          skillsWanted: "Gardening, Piano",
+          location: "Address 2, Streetsville, ON",
+          availability: "Evenings",
+          contactPreference: "Phone",
+          bio: "Excited to meet new people and learn new things.",
+        },
+        {
+          username: "user3",
+          fullName: "Carol Williams",
+          latitude: 43.6043,
+          longitude: -79.6856,
+          skillsOffered: "Painting, Sewing",
+          skillsWanted: "Coding, Public Speaking",
+          location: "Address 3, Mississauga, ON",
+          availability: "Weekdays",
+          contactPreference: "Messaging",
+          bio: "Artist looking to expand my horizons.",
+        },
+        {
+          username: "user4",
+          fullName: "David Lee",
+          latitude: 43.5654,
+          longitude: -79.7320,
+          skillsOffered: "Yoga, Meditation",
+          skillsWanted: "Cooking, Guitar",
+          location: "Address 4, Riverwood Park, Mississauga, ON",
+          availability: "Mornings",
+          contactPreference: "Email",
+          bio: "Yoga instructor passionate about healthy living.",
+        },
+        {
+          username: "user5",
+          fullName: "Eve Martinez",
+          latitude: 43.5781,
+          longitude: -79.7152,
+          skillsOffered: "French Language, Baking",
+          skillsWanted: "Photography, Painting",
+          location: "Address 5, Streetsville, ON",
+          availability: "Flexible",
+          contactPreference: "Phone",
+          bio: "Language enthusiast and avid baker.",
+        },
+        {
+          username: "user6",
+          fullName: "Frank Thompson",
+          latitude: 43.6200,
+          longitude: -79.7000,
+          skillsOffered: "Carpentry, Woodworking",
+          skillsWanted: "Plumbing, Electrical Work",
+          location: "Address 6, Mississauga, ON",
+          availability: "Weekends",
+          contactPreference: "Email",
+          bio: "Love working with wood and building things from scratch.",
+        },
+        {
+          username: "user7",
+          fullName: "Grace Kim",
+          latitude: 43.5822,
+          longitude: -79.7108,
+          skillsOffered: "Piano, Violin",
+          skillsWanted: "Gardening, Spanish",
+          location: "Address 7, Streetsville, ON",
+          availability: "Evenings",
+          contactPreference: "Phone",
+          bio: "Music teacher passionate about classical instruments.",
+        },
+        {
+          username: "user8",
+          fullName: "Henry Baker",
+          latitude: 43.5598,
+          longitude: -79.7345,
+          skillsOffered: "Cooking, Bartending",
+          skillsWanted: "Sewing, Painting",
+          location: "Address 8, Riverwood Park, Mississauga, ON",
+          availability: "Weekdays",
+          contactPreference: "Messaging",
+          bio: "Chef looking to learn more about the arts.",
+        },
+        {
+          username: "user9",
+          fullName: "Isabella Green",
+          latitude: 43.6100,
+          longitude: -79.6900,
+          skillsOffered: "Graphic Design, Drawing",
+          skillsWanted: "Public Speaking, Marketing",
+          location: "Address 9, Mississauga, ON",
+          availability: "Flexible",
+          contactPreference: "Email",
+          bio: "Freelance designer eager to improve communication skills.",
+        },
+        {
+          username: "user10",
+          fullName: "Jack White",
+          latitude: 43.5621,
+          longitude: -79.7270,
+          skillsOffered: "Fitness Training, Nutrition",
+          skillsWanted: "Yoga, Meditation",
+          location: "Address 10, Riverwood Park, Mississauga, ON",
+          availability: "Mornings",
+          contactPreference: "Phone",
+          bio: "Personal trainer with a focus on a healthy lifestyle.",
+        },
+        {
+          username: "user11",
+          fullName: "Katherine Brown",
+          latitude: 43.6080,
+          longitude: -79.6950,
+          skillsOffered: "Baking, Cake Decorating",
+          skillsWanted: "Web Design, Photography",
+          location: "Address 11, Mississauga, ON",
+          availability: "Afternoons",
+          contactPreference: "Messaging",
+          bio: "Baker who loves sharing sweet creations.",
+        },
+        {
+          username: "user12",
+          fullName: "Liam Patel",
+          latitude: 43.5805,
+          longitude: -79.7160,
+          skillsOffered: "Mathematics Tutoring, Coding",
+          skillsWanted: "Public Speaking, Gardening",
+          location: "Address 12, Streetsville, ON",
+          availability: "Evenings",
+          contactPreference: "Email",
+          bio: "Math enthusiast and coder, happy to help others learn.",
+        },
+        {
+          username: "user13",
+          fullName: "Maya Singh",
+          latitude: 43.6035,
+          longitude: -79.7050,
+          skillsOffered: "Yoga, Dance",
+          skillsWanted: "Cooking, Painting",
+          location: "Address 13, Mississauga, ON",
+          availability: "Weekends",
+          contactPreference: "Phone",
+          bio: "Dance and yoga instructor ready to learn new skills.",
+        },
+        {
+          username: "user14",
+          fullName: "Noah Clark",
+          latitude: 43.5650,
+          longitude: -79.7295,
+          skillsOffered: "Gardening, Carpentry",
+          skillsWanted: "Sewing, Cooking",
+          location: "Address 14, Riverwood Park, Mississauga, ON",
+          availability: "Flexible",
+          contactPreference: "Messaging",
+          bio: "Gardener and carpenter looking to broaden my skills.",
+        },
+      ];
 
-      // Get username from URL query parameter or set default
+      /* Retrieve username from URL parameters */
       const urlParams = new URLSearchParams(window.location.search);
       const username = urlParams.get('username');
 
+      /* Alert and redirect if no username is specified */
       if (!username) {
         alert('No user specified.');
         window.location.href = 'profiles.html';
         return;
       }
 
+      /* Find the selected profile based on the username */
       const selectedProfile = profiles.find((profile) => profile.username === username);
 
+      /* Alert and redirect if profile is not found */
       if (!selectedProfile) {
         alert('Profile not found.');
         window.location.href = 'profiles.html';
         return;
       }
 
+      /* Get the container to hold the profile card */
       const profilesContainer = document.getElementById('profiles-container');
       const profileCard = document.createElement('div');
       profileCard.classList.add('profile-card');
 
-      // Function to calculate average rating
+      /* Function to calculate the average rating from ratings array */
       function calculateAverageRating(ratings) {
         if (!ratings || ratings.length === 0) return 0;
         const total = ratings.reduce((acc, curr) => acc + curr.overall, 0);
         return (total / ratings.length).toFixed(1);
       }
 
-      // Function to create star rating elements
+      /* Function to create star rating elements based on average rating */
       function createStarRating(average) {
         const starContainer = document.createElement('div');
         starContainer.classList.add('star-rating');
@@ -460,11 +477,11 @@
         return starContainer;
       }
 
-      // Retrieve ratings for this profile
+      /* Retrieve ratings for the selected profile from localStorage */
       const ratings = JSON.parse(localStorage.getItem(`ratings_${selectedProfile.username}`)) || [];
       const averageRating = calculateAverageRating(ratings);
 
-      // Build the profile card HTML
+      /* Build the profile card content */
       profileCard.innerHTML = `
         <h2>${selectedProfile.fullName}</h2>
         <p><strong>Location:</strong> ${selectedProfile.location}</p>
@@ -482,7 +499,7 @@
         </div>
       `;
 
-      // Append the star rating
+      /* Add the star rating to the rating section */
       const ratingSection = profileCard.querySelector('.rating-section');
       const starRating = createStarRating(averageRating);
       const ratingText = document.createElement('span');
@@ -490,7 +507,7 @@
       ratingSection.appendChild(starRating);
       ratingSection.appendChild(ratingText);
 
-      // Optionally, display the number of ratings
+      /* Display the number of ratings */
       const ratingsCount = document.createElement('div');
       ratingsCount.style.marginTop = '5px';
       ratingsCount.style.fontSize = '0.9em';
@@ -498,9 +515,10 @@
       ratingsCount.textContent = `${ratings.length} rating${ratings.length !== 1 ? 's' : ''}`;
       ratingSection.appendChild(ratingsCount);
 
+      /* Add the profile card to the container */
       profilesContainer.appendChild(profileCard);
 
-      // Attach event listener to Invite button
+      /* Add event listener to the Invite button */
       profileCard.querySelector('.invite-button').addEventListener('click', () => {
         if (currentUser === selectedProfile.username) {
           showNotification('You cannot send an invite to yourself.', 'error');
@@ -509,30 +527,30 @@
         modal.style.display = 'block';
       });
 
-      // Modal Logic
+      /* Modal elements for sending invites */
       const modal = document.getElementById('invite-modal');
       const closeButton = document.querySelector('.close-button');
       const sendButton = document.getElementById('send-invite-button');
       const inviteNote = document.getElementById('invite-note');
       const notification = document.getElementById('notification');
 
-      // Close modal when X is clicked
+      /* Close the modal when the close button is clicked */
       if (closeButton) {
         closeButton.addEventListener('click', () => {
           modal.style.display = 'none';
-          inviteNote.value = ''; // Clear the note text area
+          inviteNote.value = '';
         });
       }
 
-      // Close modal when clicking outside of modal content
+      /* Close the modal when clicking outside the modal content */
       window.addEventListener('click', (event) => {
         if (event.target === modal) {
           modal.style.display = 'none';
-          inviteNote.value = ''; // Clear the note text area
+          inviteNote.value = '';
         }
       });
 
-      // Send Invite Button Logic
+      /* Handle sending an invite when the send button is clicked */
       if (sendButton) {
         sendButton.addEventListener('click', () => {
           const noteContent = inviteNote.value.trim();
@@ -541,8 +559,9 @@
             return;
           }
           if (selectedProfile) {
-            // Add to connected neighbors in Local Storage
+            /* Retrieve the current user's connected neighbors from localStorage */
             const connectedNeighbors = JSON.parse(localStorage.getItem(`connectedNeighbors_${currentUser}`)) || [];
+            /* Check if already connected */
             const alreadyConnected = connectedNeighbors.find(neighbor => neighbor.username === selectedProfile.username);
             if (alreadyConnected) {
               showNotification('You are already connected with this user.', 'error');
@@ -550,14 +569,14 @@
               inviteNote.value = '';
               return;
             }
+            /* Add the selected user to connected neighbors */
             connectedNeighbors.push({
               username: selectedProfile.username,
               fullName: selectedProfile.fullName
             });
             localStorage.setItem(`connectedNeighbors_${currentUser}`, JSON.stringify(connectedNeighbors));
 
-            // Optionally, you can also add to the other user's connected neighbors
-            // Uncomment the following lines if mutual connections are desired
+            /* Optionally, add the current user to the selected user's connected neighbors */
             /*
             const reciprocalNeighbors = JSON.parse(localStorage.getItem(`connectedNeighbors_${selectedProfile.username}`)) || [];
             reciprocalNeighbors.push({
@@ -567,15 +586,17 @@
             localStorage.setItem(`connectedNeighbors_${selectedProfile.username}`, JSON.stringify(reciprocalNeighbors));
             */
 
+            /* Show success notification */
             showNotification(`Invite sent to ${selectedProfile.fullName}!`, 'success');
 
+            /* Close the modal and clear the note */
             modal.style.display = 'none';
             inviteNote.value = '';
 
-            // Redirect to messages page after a short delay to allow the notification to be seen
+            /* Redirect to the messages page after a short delay */
             setTimeout(() => {
               window.location.href = `messages.html?username=${selectedProfile.username}`;
-            }, 1000); // 1-second delay
+            }, 1000);
           } else {
             showNotification('Selected profile does not exist.', 'error');
           }
@@ -583,7 +604,7 @@
       }
 
       /**
-       * Function to display notifications
+       * Function to display notification messages
        * @param {string} message - The message to display
        * @param {string} type - 'error' or 'success'
        */
@@ -595,7 +616,7 @@
         }
         notification.style.display = 'block';
 
-        // Hide after 3 seconds
+        /* Hide the notification after 3 seconds */
         setTimeout(() => {
           notification.style.display = 'none';
         }, 3000);
