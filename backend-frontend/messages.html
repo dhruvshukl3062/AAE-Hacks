@@ -1,21 +1,19 @@
-<!-- messages.html -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Messages | Skill Exchange Platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
-    /* Reset default margins and paddings */
+    /* Reset default margins, paddings, and box-sizing for all elements */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-
+    /* Set base styles for the body */
     body {
       font-family: 'Roboto', sans-serif;
       display: flex;
@@ -26,23 +24,22 @@
       background: #f0f2f5;
     }
 
-
+    /* Style the main chat container */
     .chat-container {
       width: 100%;
       max-width: 1000px;
       height: 90vh;
       padding: 20px;
       background: #ffffff;
-      border: 2px solid #a80606; /* Black frame */
-      border-radius: 20px; /* Rounded edges */
+      border: 2px solid #a80606;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
     }
 
-
-    /* Tinted Background Overlay */
+    /* Add a tinted background overlay to the chat container */
     .chat-container::before {
       content: "";
       position: absolute;
@@ -50,21 +47,20 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.05); /* Slight tint */
+      background: rgba(0, 0, 0, 0.05);
       border-radius: 20px;
       pointer-events: none;
     }
 
-
-    /* Chat Header */
+    /* Style the chat header */
     .chat-header {
       display: flex;
-      justify-content: center; /* Center the text */
+      justify-content: center;
       align-items: center;
       margin-bottom: 10px;
       padding: 10px;
-      background: #a73225; /* Darker background */
-      border-radius: 15px; /* Rounded edges */
+      background: #a73225;
+      border-radius: 15px;
       color: #ffffff;
       font-size: 1.2em;
       font-weight: bold;
@@ -73,13 +69,13 @@
       z-index: 1;
     }
 
-
+    /* Style the chat-with text in the header */
     .chat-header #chat-with {
       flex: 1;
-      text-align: center; /* Center the text within the header */
+      text-align: center;
     }
 
-
+    /* Style the back button in the chat header */
     .chat-header button {
       position: absolute;
       left: 10px;
@@ -91,13 +87,12 @@
       transition: color 0.3s;
     }
 
-
+    /* Change back button color on hover */
     .chat-header button:hover {
       color: #bdc3c7;
     }
 
-
-    /* Chat Messages */
+    /* Style the container for chat messages */
     .chat-messages {
       flex: 1;
       padding: 10px;
@@ -108,32 +103,31 @@
       position: relative;
     }
 
-
+    /* Style individual messages */
     .message {
       display: flex;
       margin: 10px 0;
       align-items: flex-end;
     }
 
-
+    /* Align sent messages to the right */
     .message.sent {
       justify-content: flex-end;
     }
 
-
+    /* Align received messages to the left */
     .message.received {
       justify-content: flex-start;
     }
 
-
-    /* Avatar Styling with Initials */
+    /* Style avatars within messages */
     .message .avatar {
       width: 30px;
       height: 30px;
       border-radius: 50%;
       margin: 0 10px;
-      background-color: #000000; /* Black background */
-      color: #ffffff; /* White text */
+      background-color: #000000;
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -143,13 +137,12 @@
       flex-shrink: 0;
     }
 
-
+    /* Hide avatar for sent messages */
     .message.sent .avatar {
-      display: none; /* Hide avatar for sent messages */
+      display: none;
     }
 
-
-    /* Message Content */
+    /* Style the content of each message */
     .message-content {
       max-width: 70%;
       padding: 10px 15px;
@@ -161,42 +154,39 @@
       color: #333;
     }
 
-
+    /* Style sent message content */
     .message.sent .message-content {
       background-color: #a73225;
       color: #fff;
       border-bottom-right-radius: 5px;
     }
 
-
+    /* Style received message content */
     .message.received .message-content {
       background-color: #e5e5ea;
       color: #333;
       border-bottom-left-radius: 5px;
     }
 
-
-    /* Style for image messages */
+    /* Style images within messages */
     .message-content img {
       max-width: 100%;
       border-radius: 10px;
       margin-top: 5px;
     }
 
-
-    /* Input Area */
+    /* Style the container for chat input and buttons */
     .chat-input-container {
       display: flex;
       align-items: center;
       padding: 10px;
-      /* Removed background and border to eliminate the white box */
       background: transparent;
       position: sticky;
       bottom: 0;
       z-index: 1;
     }
 
-
+    /* Style the chat input field */
     .chat-input {
       flex: 1;
       padding: 10px 15px;
@@ -204,75 +194,72 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       outline: none;
-      background: #f0f2f5; /* Light gray background */
-      color: #333; /* Dark text color for better contrast */
+      background: #f0f2f5;
+      color: #333;
       transition: border-color 0.3s;
     }
 
-
+    /* Style the placeholder text in chat input */
     .chat-input::placeholder {
-      color: #b3b3b3; /* Lighter placeholder text */
+      color: #b3b3b3;
     }
 
-
+    /* Change border color when chat input is focused */
     .chat-input:focus {
       border-color: #3498db;
     }
 
-
+    /* Style the container for action buttons */
     .button-group {
       display: flex;
       align-items: center;
       margin-left: 10px;
-      position: relative; /* For positioning the emoji dropdown */
+      position: relative;
     }
 
-
-    /* Updated Button Styles to Mimic Instagram */
+    /* Style attach, emoji, and send buttons */
     .attach-button, .emoji-button, .send-button {
       background: none;
       border: none;
       cursor: pointer;
       font-size: 1.5em;
-      margin-left: 10px; /* Increased spacing for better alignment */
-      color: #333333; /* Dark gray color for better contrast */
+      margin-left: 10px;
+      color: #333333;
       transition: color 0.3s, transform 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-
+    /* Change button color and scale on hover */
     .attach-button:hover, .emoji-button:hover, .send-button:hover {
-      color: #a73225; /* Instagram-like blue on hover */
-      transform: scale(1.1); /* Slight enlargement on hover */
+      color: #a73225;
+      transform: scale(1.1);
     }
 
-
-    /* SVG Icon Styling - Updated for Instagram Look */
+    /* Style SVG icons within buttons */
     .attach-button svg, .send-button svg, .emoji-button svg {
       width: 24px;
       height: 24px;
-      fill: #333333; /* Default icon color */
+      fill: #333333;
       transition: fill 0.3s;
     }
 
-
+    /* Change icon color on hover */
     .attach-button:hover svg, .emoji-button:hover svg, .send-button:hover svg {
-      fill: #0084ff; /* Change icon color on hover */
+      fill: #0084ff;
     }
 
-
-    /* Enhanced Send Button Styling */
+    /* Style the send button container */
     .send-button-container {
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-
+    /* Style the send button */
     .send-button {
-      background-color: #a73225; /* Bright blue background */
+      background-color: #a73225;
       border: none;
       border-radius: 50%;
       width: 40px;
@@ -285,43 +272,42 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-
+    /* Change send button background and scale on hover */
     .send-button:hover {
-      background-color: #006bbd; /* Darker blue on hover */
-      transform: scale(1.05); /* Slight enlargement on hover */
+      background-color: #006bbd;
+      transform: scale(1.05);
     }
 
-
+    /* Style SVG icon within the send button */
     .send-button svg {
       width: 20px;
       height: 20px;
-      fill: #ffffff; /* White icon color */
+      fill: #ffffff;
       transition: fill 0.3s;
     }
 
-
-    /* Emoji Dropdown */
+    /* Style the emoji dropdown menu */
     .emoji-dropdown {
       position: absolute;
-      bottom: 60px; /* Adjusted position above the input area */
+      bottom: 60px;
       left: 0;
       background: #ffffff;
       border: 1px solid #ccc;
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      display: none; /* Hidden by default */
+      display: none;
       z-index: 2;
     }
 
-
+    /* Display the emoji dropdown when visible */
     .emoji-dropdown.visible {
       display: flex;
       flex-wrap: wrap;
       width: 220px;
     }
 
-
+    /* Style individual emoji buttons */
     .emoji-dropdown button {
       background: none;
       border: none;
@@ -331,36 +317,31 @@
       transition: transform 0.2s;
     }
 
-
+    /* Scale emoji on hover */
     .emoji-dropdown button:hover {
       transform: scale(1.2);
     }
 
-
-    /* Scrollbar Styling */
+    /* Style scrollbars within chat messages */
     .chat-messages::-webkit-scrollbar {
       width: 6px;
     }
-
 
     .chat-messages::-webkit-scrollbar-track {
       background: #f1f1f1;
       border-radius: 10px;
     }
 
-
     .chat-messages::-webkit-scrollbar-thumb {
       background: #888;
       border-radius: 10px;
     }
 
-
     .chat-messages::-webkit-scrollbar-thumb:hover {
       background: #555;
     }
 
-
-    /* Notification Styling */
+    /* Style notification messages */
     .notification {
       position: fixed;
       top: 20px;
@@ -374,52 +355,52 @@
       font-family: 'Roboto', sans-serif;
     }
 
-
+    /* Style error notifications */
     .notification.error {
       background: #e74c3c;
     }
 
-
-    /* Responsive Adjustments */
+    /* Responsive styles for smaller screens */
     @media (max-width: 450px) {
+      /* Adjust chat container size on very small screens */
       .chat-container {
         width: 95%;
         height: 95vh;
       }
 
-
+      /* Adjust chat header font size and border radius */
       .chat-header {
         font-size: 1em;
         border-radius: 10px;
       }
 
-
+      /* Adjust back button font size */
       .chat-header button {
         font-size: 1.2em;
       }
 
-
+      /* Adjust button sizes */
       .send-button, .attach-button, .emoji-button {
         font-size: 1.2em;
       }
 
-
+      /* Adjust SVG icon sizes within buttons */
       .attach-button svg, .send-button svg, .emoji-button svg {
         width: 20px;
         height: 20px;
       }
 
-
+      /* Adjust send button container padding */
       .send-button-container {
         padding: 4px;
       }
 
-
+      /* Adjust emoji dropdown width on small screens */
       .emoji-dropdown {
         width: 150px;
       }
 
-
+      /* Adjust emoji button sizes and margins */
       .emoji-dropdown button {
         font-size: 1.2em;
         margin: 3px;
@@ -429,7 +410,7 @@
 </head>
 <body>
   <div class="chat-container">
-    <!-- Chat Header with Back Button and Centered Title -->
+    <!-- Chat header with back button and chat title -->
     <div class="chat-header">
       <button id="back-to-dashboard" aria-label="Back">
         &#8592;
@@ -437,18 +418,17 @@
       <span id="chat-with">Chat with User</span>
     </div>
 
-
-    <!-- Chat Messages -->
+    <!-- Container for displaying chat messages -->
     <div class="chat-messages" id="chat-messages">
       <!-- Messages will be dynamically added here -->
     </div>
 
-
-    <!-- Chat Input Container with Attach, Emoji, and Send Buttons -->
+    <!-- Container for chat input and action buttons -->
     <div class="chat-input-container">
+      <!-- Input field for typing messages -->
       <input type="text" id="chat-input" class="chat-input" placeholder="Type a message...">
       <div class="button-group">
-        <!-- Emoji Button -->
+        <!-- Emoji selection button -->
         <button id="emoji-button" class="emoji-button" aria-label="Choose Emoji">
           <!-- Emoji SVG Icon -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -466,10 +446,8 @@
           </svg>
         </button>
 
-
-        <!-- Emoji Dropdown -->
+        <!-- Emoji dropdown menu -->
         <div id="emoji-dropdown" class="emoji-dropdown">
-          <!-- Add more emojis as needed -->
           <button type="button">😀</button>
           <button type="button">😂</button>
           <button type="button">😍</button>
@@ -484,8 +462,7 @@
           <button type="button">😎</button>
         </div>
 
-
-        <!-- Attach Button -->
+        <!-- Attach file button -->
         <button id="attach-button" class="attach-button" aria-label="Attach File">
           <!-- Paperclip SVG Icon -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -498,11 +475,11 @@
           </svg>
         </button>
 
-
-        <!-- Enhanced Send Button -->
+        <!-- Container for the send button -->
         <div class="send-button-container">
+          <!-- Send message button -->
           <button id="send-button" class="send-button" aria-label="Send Message">
-            <!-- Modern Paper Plane SVG Icon -->
+            <!-- Paper Plane SVG Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M2.01 21L23 12 2.01 3v7l15
               2-15 2z"/>
@@ -510,18 +487,14 @@
           </button>
         </div>
       </div>
-    </div>
 
-
-    <!-- Notification -->
-    <div id="notification" class="notification"></div>
+      <!-- Notification area for displaying messages -->
+      <div id="notification" class="notification"></div>
   </div>
 
-
-  <!-- Custom Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Profiles Array to map usernames to full names
+      /* Array mapping usernames to their full names */
       const profiles = [
         { username: "user1", fullName: "Alice Johnson" },
         { username: "user2", fullName: "Bob Smith" },
@@ -539,8 +512,7 @@
         { username: "user14", fullName: "Noah Clark" },
       ];
 
-
-      // Function to retrieve query parameters
+      /* Function to retrieve query parameters from the URL */
       function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(pair => {
@@ -552,11 +524,10 @@
         return params;
       }
 
-
+      /* Get query parameters and determine who the chat is with */
       const queryParams = getQueryParams();
       const chatUsername = queryParams.username;
-      let chatFullName = 'User'; // Default value
-
+      let chatFullName = 'User';
 
       if (chatUsername) {
         const profile = profiles.find(p => p.username === chatUsername);
@@ -565,8 +536,7 @@
         }
       }
 
-
-      // Function to get initials from full name
+      /* Function to extract initials from a full name */
       function getInitials(name) {
         const names = name.trim().split(' ');
         let initials = names[0].charAt(0);
@@ -576,41 +546,34 @@
         return initials.toUpperCase();
       }
 
-
-      // Set chat header to show who the conversation is with
+      /* Update the chat header with the full name of the user being chatted with */
       const chatWith = document.getElementById('chat-with');
       if (chatWith) {
         chatWith.textContent = `Chat with ${chatFullName}`;
       }
 
-
-      // Key for storing/retrieving messages from localStorage
+      /* Define the key for storing messages in localStorage */
       const chatKey = `chat_${getCurrentUser()}_${chatUsername}`;
 
-
-      // Function to get the current user (assumes 'currentUser' is stored in localStorage)
+      /* Function to get the current logged-in user */
       function getCurrentUser() {
-        return localStorage.getItem('currentUser') || 'currentUser'; // Default to 'currentUser' if not set
+        return localStorage.getItem('currentUser') || 'currentUser';
       }
 
-
-      // Messages array to store current conversation's messages
+      /* Load existing messages or initialize with a default message */
       let messages = loadMessages();
 
-
-      // Predefined replies in specific order
+      /* Predefined replies to simulate a conversation */
       const predefinedReplies = [
         "Yes of course! When are you available?",
         "Looking forward to our session!",
         "Feel free to ask any questions.",
       ];
 
-
-      // Counter to track the next reply to send
+      /* Counter to track which predefined reply to send next */
       let replyCounter = getLastReplyCounter();
 
-
-      // Function to load messages from localStorage
+      /* Function to load messages from localStorage */
       function loadMessages() {
         const storedMessages = JSON.parse(localStorage.getItem(chatKey)) || [
           { type: 'received', content: 'Hey! Happy to help!', avatar: chatFullName },
@@ -618,27 +581,23 @@
         return storedMessages;
       }
 
-
-      // Function to save messages to localStorage
+      /* Function to save messages to localStorage */
       function saveMessages() {
         localStorage.setItem(chatKey, JSON.stringify(messages));
       }
 
-
-      // Function to get the last reply counter from localStorage
+      /* Function to get the last reply counter from localStorage */
       function getLastReplyCounter() {
         const counter = parseInt(localStorage.getItem(`${chatKey}_replyCounter`), 10);
         return isNaN(counter) ? 0 : counter;
       }
 
-
-      // Function to save the reply counter to localStorage
+      /* Function to save the reply counter to localStorage */
       function saveReplyCounter() {
         localStorage.setItem(`${chatKey}_replyCounter`, replyCounter);
       }
 
-
-      // Function to render messages in the chat
+      /* Function to render all messages in the chat */
       const chatMessages = document.getElementById('chat-messages');
       function renderMessages() {
         if (chatMessages) {
@@ -647,16 +606,14 @@
             const messageElement = document.createElement('div');
             messageElement.className = `message ${message.type}`;
 
-
-            // Create avatar element if received
+            /* Add avatar for received messages */
             let avatarHTML = '';
             if (message.type === 'received') {
               const initials = getInitials(chatFullName);
               avatarHTML = `<div class="avatar">${initials}</div>`;
             }
 
-
-            // Determine if the message content is an image
+            /* Determine if the message is an image */
             let contentHTML = '';
             if (message.isImage) {
               contentHTML = `<img src="${sanitizeHTML(message.content)}" alt="Attached Image">`;
@@ -664,35 +621,31 @@
               contentHTML = sanitizeHTML(message.content);
             }
 
-
+            /* Construct the message content */
             messageElement.innerHTML = `
               ${avatarHTML}
               <div class="message-content">${contentHTML}</div>
             `;
             chatMessages.appendChild(messageElement);
           });
-          // Scroll to the bottom
+          /* Scroll to the latest message */
           chatMessages.scrollTop = chatMessages.scrollHeight;
         }
       }
 
-
-      // Simple sanitization to prevent XSS
+      /* Basic sanitization to prevent XSS attacks */
       function sanitizeHTML(str) {
         var temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
       }
 
-
-      // Render initial messages
+      /* Initial rendering of messages */
       renderMessages();
 
-
-      // Handle send button click
+      /* Handle sending messages when the send button is clicked or Enter is pressed */
       const sendButton = document.getElementById('send-button');
       const chatInput = document.getElementById('chat-input');
-
 
       if (sendButton && chatInput) {
         sendButton.addEventListener('click', sendMessage);
@@ -703,27 +656,25 @@
         });
       }
 
-
-      // Handle attach button click
+      /* Handle attaching files when the attach button is clicked */
       const attachButton = document.getElementById('attach-button');
       if (attachButton) {
         attachButton.addEventListener('click', () => {
-          // Create a hidden file input
+          /* Create a hidden file input element */
           const fileInput = document.createElement('input');
           fileInput.type = 'file';
-          fileInput.accept = 'image/*'; // Accept only image files
+          fileInput.accept = 'image/*';
 
-
-          // When a file is selected, handle it here
+          /* Handle file selection */
           fileInput.onchange = () => {
             const file = fileInput.files[0];
             if (file) {
-              // Check if the file is an image
+              /* Check if the selected file is an image */
               if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                   const imageData = e.target.result;
-                  // Add the image as a sent message
+                  /* Add the image as a sent message */
                   messages.push({ type: 'sent', content: imageData, isImage: true });
                   saveMessages();
                   renderMessages();
@@ -731,7 +682,7 @@
                 };
                 reader.readAsDataURL(file);
               } else {
-                // For non-image files, display the file name as a sent message
+                /* Add non-image files as text messages */
                 messages.push({ type: 'sent', content: `You attached: ${file.name}` });
                 saveMessages();
                 renderMessages();
@@ -740,31 +691,29 @@
             }
           };
 
-
-          // Trigger the file input
+          /* Trigger the file input dialog */
           fileInput.click();
         });
       }
 
-
-      // Handle emoji button and dropdown
+      /* Handle emoji button and dropdown functionality */
       const emojiButton = document.getElementById('emoji-button');
       const emojiDropdown = document.getElementById('emoji-dropdown');
 
-
       if (emojiButton && emojiDropdown) {
+        /* Toggle the visibility of the emoji dropdown */
         emojiButton.addEventListener('click', (e) => {
-          e.stopPropagation(); // Prevent event from bubbling up
+          e.stopPropagation();
           emojiDropdown.classList.toggle('visible');
         });
 
-
-        // Add event listeners to each emoji
+        /* Add event listeners to each emoji button */
         const emojiButtons = emojiDropdown.querySelectorAll('button');
         emojiButtons.forEach((btn) => {
           btn.addEventListener('click', () => {
             const emoji = btn.textContent;
             if (emoji) {
+              /* Add the selected emoji as a sent message */
               messages.push({ type: 'sent', content: emoji });
               saveMessages();
               renderMessages();
@@ -774,8 +723,7 @@
           });
         });
 
-
-        // Close the dropdown if clicked outside
+        /* Close the emoji dropdown when clicking outside */
         document.addEventListener('click', (e) => {
           if (!emojiDropdown.contains(e.target) && !emojiButton.contains(e.target)) {
             emojiDropdown.classList.remove('visible');
@@ -783,10 +731,11 @@
         });
       }
 
-
+      /* Function to send a message */
       function sendMessage() {
         const messageContent = chatInput.value.trim();
         if (messageContent) {
+          /* Add the message to the messages array */
           messages.push({ type: 'sent', content: messageContent });
           saveMessages();
           chatInput.value = '';
@@ -795,48 +744,45 @@
         }
       }
 
-
-      // Simulate a reply from the user in a specific order
+      /* Function to simulate a reply from the other user */
       function simulateReply() {
         if (replyCounter < predefinedReplies.length) {
           setTimeout(() => {
             const reply = predefinedReplies[replyCounter];
+            /* Add the reply to the messages array */
             messages.push({ type: 'received', content: reply, avatar: chatFullName });
             replyCounter++;
             saveReplyCounter();
             saveMessages();
             renderMessages();
-          }, 2000); // 2-second delay
+          }, 2000);
         }
       }
 
-
-      // Handle Back Button Click - Redirect to dashboard.html
+      /* Handle the back button to navigate to the dashboard */
       const backToDashboardButton = document.getElementById('back-to-dashboard');
       if (backToDashboardButton) {
         backToDashboardButton.addEventListener('click', () => {
-          window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+          window.location.href = 'dashboard.html';
         });
       }
 
-
       /**
-       * Function to display notifications
+       * Function to display notification messages
        * @param {string} message - The message to display
-       * @param {string} type - 'error' or 'success'
+       * @param {string} type - The type of notification ('error' or 'success')
        */
       function showNotification(message, type = 'success') {
         const notification = document.getElementById('notification');
         if (notification) {
           notification.textContent = message;
-          notification.className = 'notification'; // Reset classes
+          notification.className = 'notification';
           if (type === 'error') {
             notification.classList.add('error');
           }
           notification.style.display = 'block';
 
-
-          // Hide after 3 seconds
+          /* Hide the notification after 3 seconds */
           setTimeout(() => {
             notification.style.display = 'none';
           }, 3000);
@@ -846,6 +792,3 @@
   </script>
 </body>  
 </html>
-
-
-
