@@ -4,21 +4,43 @@
   <meta charset="UTF-8" />
   <title>Register | Skill Exchange Platform</title>
   
-  <!-- Google Fonts -->
+  <!-- Link to Google Fonts for typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
     rel="stylesheet"
   >
   
+  <!-- Link to Font Awesome for icon usage -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pO/... (replace with actual hash)"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  
   <style>
-    /* Resetting default styles */
+    /* Define CSS variables for consistent theming */
+    :root {
+      --primary-color: #1e1e1e;
+      --secondary-color: #ffffff;
+      --accent-color: #ff6f61;
+      --text-color: #333333;
+      --background-color: #ffffff;
+      --button-border-color: #b71c1c;
+      --button-hover-bg: #b71c1c;
+      --button-hover-text: #ffffff;
+    }
+    
+    /* Reset default margins and paddings for all elements */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Set base styles for html and body elements */
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f0f0f0;
@@ -28,6 +50,7 @@
       justify-content: center;
     }
 
+    /* Style the container that holds the registration form */
     .form-container {
       max-width: 600px;
       width: 90%;
@@ -40,6 +63,7 @@
       padding-bottom: 80px;
     }
 
+    /* Style the Skill Exchange title */
     .skill-exchange {
       font-size: 24px;
       font-weight: bold;
@@ -48,6 +72,7 @@
       position: relative;
     }
 
+    /* Style the greeting carousel text */
     .greeting-text {
       font-size: 50px;
       font-weight: bold;
@@ -60,26 +85,31 @@
       position: relative;
     }
 
+    /* Style individual greeting messages in the carousel */
     .greeting-text span {
       position: absolute;
       opacity: 0;
       transition: opacity 1s ease;
     }
 
+    /* Make the active greeting message visible */
     .greeting-text span.active {
       opacity: 1;
     }
 
+    /* Style the registration form */
     form {
       width: 100%;
     }
 
+    /* Style each input container within the form */
     .input-container {
       position: relative;
       margin-bottom: 40px;
       overflow: hidden;
     }
 
+    /* Style input fields within the input container */
     .input-container input {
       width: 100%;
       border: none;
@@ -94,6 +124,7 @@
       position: relative;
     }
 
+    /* Style the animated underline effect for input fields */
     .input-container::after {
       content: '';
       position: absolute;
@@ -105,15 +136,18 @@
       transition: width .7s ease;
     }
 
+    /* Expand the underline when the input is focused or active */
     .input-container:focus-within::after,
     .input-container.active::after {
       width: 100%;
     }
 
+    /* Hide the placeholder text */
     .input-container input::placeholder {
       color: transparent;
     }
 
+    /* Style the labels for input fields */
     .input-container label {
       position: absolute;
       top: 12px;
@@ -124,12 +158,14 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
+    /* Hide labels when the input is focused or has valid input */
     .input-container input:focus + label,
     .input-container input:valid + label {
       opacity: 0;
       visibility: hidden;
     }
 
+    /* Style the SVG icons inside input containers */
     .input-container .input-icon {
       position: absolute;
       left: 10px;
@@ -142,6 +178,7 @@
       pointer-events: none;
     }
 
+    /* Style the eye icon for toggling password visibility */
     .input-container .view-password {
       position: absolute;
       right: 10px;
@@ -155,10 +192,12 @@
       transition: fill 0.3s;
     }
 
+    /* Change the eye icon color on hover */
     .input-container .view-password:hover {
       fill: #555;
     }
 
+    /* Style the bottom container that holds the register button */
     .bottom-container {
       position: absolute;
       bottom: 0px;
@@ -176,10 +215,12 @@
       transition: background-color 0.3s;
     }
 
+    /* Change background color of bottom container when active */
     .bottom-container.active {
       background-color: red;
     }
 
+    /* Style the submit button */
     .bottom-container button {
       padding: 12px 24px;
       font-size: 15px;
@@ -192,15 +233,18 @@
       font-weight: 600;
     }
 
+    /* Change submit button appearance when the container is active */
     .bottom-container.active button {
       background-color: red;
       color: white;
     }
 
+    /* Scale the submit button slightly on hover */
     .bottom-container button:hover {
       transform: scale(1.05);
     }
 
+    /* Style notification messages */
     .notification {
       display: none;
       position: fixed;
@@ -214,6 +258,7 @@
       z-index: 1000;
     }
 
+    /* Style error notifications with a different background color */
     .notification.error {
       background-color: #e74c3c;
     }
@@ -221,141 +266,152 @@
 </head>
 <body>
 
+  <!-- Container for the registration form -->
   <div class="form-container">
+    <!-- Display the Skill Exchange title -->
     <div class="skill-exchange">Skill Exchange™</div>
+    <!-- Carousel for rotating greeting messages -->
     <div id="greeting-carousel" class="greeting-text">
       <span class="active">Join Us Today!</span>
       <span>Create Your Account!</span>
       <span>Start Your Skill Exchange!</span>
     </div>
+    <!-- Registration form -->
     <form id="register-form">
+      <!-- Username input field with icon -->
       <div class="input-container">
-        <!-- User SVG Icon -->
         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
           <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm89.6 32h-16.7a174.1 174.1 0 0 1-145.8 0h-16.7A134.4 134.4 0 0 0 0 422.4V464a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48v-41.6A134.4 134.4 0 0 0 313.6 288z"/>
         </svg>
         <input type="text" name="username" id="username" required autocomplete="username" placeholder="" />
         <label for="username">Username</label>
       </div>
+      <!-- Password input field with icon and visibility toggle -->
       <div class="input-container">
-        <!-- Lock SVG Icon -->
         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
           <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM128 152c0-53 43-96 96-96s96 43 96 96v72H128v-72zm224 304c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h352c8.8 0 16 7.2 16 16v184z" fill="#999"/>
         </svg>
         <input type="password" name="password" id="password" required autocomplete="new-password" placeholder="" />
         <label for="password">Password</label>
-        <!-- Eye SVG Icon for Viewing Password -->
+        <!-- Eye icon to toggle password visibility -->
         <svg class="view-password" id="toggle-icon-password" onclick="togglePassword('password', 'toggle-icon-password')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-label="Toggle Password Visibility" role="img">
           <path d="M572.52 241.4C518.6 135.5 407.4 64 288 64S57.4 135.5 3.48 241.4a48.32 48.32 0 0 0 0 29.2C57.4 376.5 168.6 448 288 448s230.6-71.5 284.52-177.4a48.32 48.32 0 0 0 0-29.2zM288 400c-97 0-176-54.9-224-144 48-89.1 127-144 224-144s176 54.9 224 144c-48 89.1-127 144-224 144zm0-240a96 96 0 1 0 96 96 96.11 96.11 0 0 0-96-96zm0 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         </svg>
       </div>
+      <!-- Confirm Password input field with icon and visibility toggle -->
       <div class="input-container">
-        <!-- Confirm Password SVG Icon (Reuse Lock Icon) -->
         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
           <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM128 152c0-53 43-96 96-96s96 43 96 96v72H128v-72zm224 304c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h352c8.8 0 16 7.2 16 16v184z" fill="#999"/>
         </svg>
         <input type="password" name="confirm-password" id="confirm-password" required autocomplete="new-password" placeholder="" />
         <label for="confirm-password">Confirm Password</label>
-        <!-- Eye SVG Icon for Viewing Confirm Password -->
+        <!-- Eye icon to toggle confirm password visibility -->
         <svg class="view-password" id="toggle-icon-confirm-password" onclick="togglePassword('confirm-password', 'toggle-icon-confirm-password')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-label="Toggle Password Visibility" role="img">
           <path d="M572.52 241.4C518.6 135.5 407.4 64 288 64S57.4 135.5 3.48 241.4a48.32 48.32 0 0 0 0 29.2C57.4 376.5 168.6 448 288 448s230.6-71.5 284.52-177.4a48.32 48.32 0 0 0 0-29.2zM288 400c-97 0-176-54.9-224-144 48-89.1 127-144 224-144s176 54.9 224 144c-48 89.1-127 144-224 144zm0-240a96 96 0 1 0 96 96 96.11 96.11 0 0 0-96-96zm0 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         </svg>
       </div>
     </form>
+    <!-- Container for the register button at the bottom of the form -->
     <div class="bottom-container">
       <button type="submit" form="register-form">Register</button>
     </div>
   </div>
 
+  <!-- Container for displaying notification messages -->
   <div id="notification" class="notification"></div>
 
   <script>
-    // Greeting Carousel
+    // Initialize the greeting carousel with rotating messages
     const greetings = ["Join Us Today!", "Create Your Account!", "Start Your Skill Exchange!"];
     let currentGreetingIndex = 0;
     const greetingElement = document.getElementById('greeting-carousel');
     const greetingSpans = greetingElement.getElementsByTagName('span');
 
+    // Function to rotate the greeting messages
     function rotateGreeting() {
       greetingSpans[currentGreetingIndex].classList.remove('active');
       currentGreetingIndex = (currentGreetingIndex + 1) % greetings.length;
       greetingSpans[currentGreetingIndex].classList.add('active');
     }
 
+    // Set an interval to change the greeting every 3 seconds
     setInterval(rotateGreeting, 3000);
 
-    // Toggle Password Visibility
+    // Function to toggle password visibility
     function togglePassword(inputId, iconId) {
       const passwordField = document.getElementById(inputId);
       const toggleIcon = document.getElementById(iconId);
       if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        // Change to eye-slash icon
+        // Change to eye-slash icon when password is visible
         toggleIcon.innerHTML = `
-          <path d="M320 400h-192c-35.3 0-64-28.7-64-64V176c0-35.3 28.7-64 64-64h192c35.3 0 64 28.7 64 64v160c0 35.3-28.7 64-64 64zm-192-288c-17.7 0-32 14.3-32 32v160c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32V176c0-17.7-14.3-32-32-32H128zm192 160a64 64 0 1 1-64-64 64.07 64.07 0 0 1 64 64z"/>
+          <path d="M320 400h-192c-35.3 0-64-28.7-64-64V176c0-35.3 28.7-64 64-64h192c35.3 0 64 28.7 64 64v160c0 35.3-28.7 64-64 64zM128 152c0-53 43-96 96-96s96 43 96 96v72H128v-72zm224 304c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h352c8.8 0 16 7.2 16 16v184z"/>
         `;
       } else {
         passwordField.type = 'password';
-        // Change back to eye icon
+        // Change back to eye icon when password is hidden
         toggleIcon.innerHTML = `
           <path d="M572.52 241.4C518.6 135.5 407.4 64 288 64S57.4 135.5 3.48 241.4a48.32 48.32 0 0 0 0 29.2C57.4 376.5 168.6 448 288 448s230.6-71.5 284.52-177.4a48.32 48.32 0 0 0 0-29.2zM288 400c-97 0-176-54.9-224-144 48-89.1 127-144 224-144s176 54.9 224 144c-48 89.1-127 144-224 144zm0-240a96 96 0 1 0 96 96 96.11 96.11 0 0 0-96-96zm0 160a64 64 0 1 1 64-64 64.07 64.07 0 0 1-64 64z"/>
         `;
       }
     }
 
-    // Register Form Submission
+    // Handle the submission of the registration form
     document.getElementById('register-form').addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent form from submitting traditionally
+      e.preventDefault(); // Prevent the default form submission behavior
 
+      // Retrieve and trim input values
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirm-password').value;
 
-      // Input Validation
+      // Validate that all fields are filled
       if (!username || !password || !confirmPassword) {
         showNotification('Please fill in all fields.', 'error');
         return;
       }
 
+      // Validate that password and confirm password match
       if (password !== confirmPassword) {
         showNotification('Passwords do not match.', 'error');
         return;
       }
 
-      // Retrieve existing users from localStorage
+      // Retrieve existing users from localStorage or initialize an empty array
       const users = JSON.parse(localStorage.getItem('users')) || [];
 
-      // Check for duplicate usernames
+      // Check if the entered username already exists
       const existingUser = users.find(u => u.username === username);
       if (existingUser) {
         showNotification('Username already exists. Please choose another.', 'error');
         return;
       }
 
-      // Create new user object
+      // Create a new user object with the entered credentials
       const newUser = {
         username: username,
         password: password // Note: In a real application, passwords should be hashed!
       };
 
-      // Add new user to users array
+      // Add the new user to the users array
       users.push(newUser);
 
-      // Store updated users array in localStorage
+      // Store the updated users array back into localStorage
       localStorage.setItem('users', JSON.stringify(users));
 
+      // Display a success notification to the user
       showNotification('Registration successful! Redirecting to login...', 'success');
 
-      // Redirect to login page after a short delay
+      // Redirect the user to the login page after a short delay
       setTimeout(() => {
         window.location.href = 'login.html';
       }, 2000);
     });
 
     /**
-     * Function to display notifications
+     * Function to display notification messages
      * @param {string} message - The message to display
-     * @param {string} type - 'error', 'success'
+     * @param {string} type - 'error' or 'success'
      */
     function showNotification(message, type = 'success') {
       const notification = document.getElementById('notification');
@@ -364,31 +420,32 @@
 
       if (type === 'error') {
         notification.classList.add('error');
+      } else {
+        notification.classList.add('success');
       }
-      // For 'success' type, keep the default green background
-
       notification.style.display = 'block';
 
-      // Hide after 3 seconds
+      // Automatically hide the notification after 3 seconds
       setTimeout(() => {
         notification.style.display = 'none';
       }, 3000);
     }
 
-    // Function to check input activity and update bottom container
+    // Function to check input activity and update the form's appearance
     function checkInputActivity() {
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
       const confirmPassword = document.getElementById('confirm-password').value.trim();
       const bottomContainer = document.querySelector('.bottom-container');
 
+      // Add or remove the 'active' class based on input presence
       if (username !== '' || password !== '' || confirmPassword !== '') {
         bottomContainer.classList.add('active');
       } else {
         bottomContainer.classList.remove('active');
       }
 
-      // Additionally, add 'active' class to input-container if input has content
+      // Toggle the 'active' class on input containers based on their content
       const inputContainers = document.querySelectorAll('.input-container');
       inputContainers.forEach(container => {
         const input = container.querySelector('input');
@@ -400,7 +457,7 @@
       });
     }
 
-    // Add event listeners to inputs
+    // Attach event listeners to input fields to monitor activity
     document.getElementById('username').addEventListener('input', checkInputActivity);
     document.getElementById('password').addEventListener('input', checkInputActivity);
     document.getElementById('confirm-password').addEventListener('input', checkInputActivity);
