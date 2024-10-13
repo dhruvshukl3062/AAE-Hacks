@@ -1,29 +1,25 @@
-// public/script.js
-
-
-// Wait for the DOM to load before executing
+// Wait for the DOM to fully load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
-  // Check if we're on the dashboard page
+  // Check if the current page is the dashboard
   if (window.location.pathname.endsWith('/dashboard.html')) {
-    // Fetch user data to display on the dashboard
+    // Fetch session data from the server
     fetch('/session-data')
       .then((response) => response.json())
       .then((data) => {
         if (data.user) {
           const user = data.user;
+          // Display the username on the dashboard
           const usernameElement = document.getElementById('username');
           if (usernameElement) {
             usernameElement.textContent = user.username;
           }
 
-
-          // Get URL parameters
+          // Retrieve URL parameters
           const urlParams = new URLSearchParams(window.location.search);
           const saved = urlParams.get('saved');
 
-
           if (user.profile && user.profile.fullName) {
-            // Populate profile summary
+            // Populate the profile summary section with user data
             document.getElementById('summary-fullName').textContent = user.profile.fullName;
             document.getElementById('summary-location').textContent = user.profile.location;
             document.getElementById('summary-skillsOffered').textContent = user.profile.skillsOffered;
@@ -32,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('summary-contactPreference').textContent = user.profile.contactPreference;
             document.getElementById('summary-bio').textContent = user.profile.bio;
 
-
-            // Show profile summary and hide form
+            // Show the profile summary and hide the profile form
             const profileSummary = document.getElementById('profile-summary');
             const profileForm = document.getElementById('profile-form');
             if (profileSummary && profileForm) {
@@ -41,8 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
               profileForm.style.display = 'none';
             }
 
-
-            // Show success message if profile was just saved
+            // Display a success message if the profile was just saved
             if (saved === 'true') {
               const successMessage = document.getElementById('success-message');
               if (successMessage) {
@@ -50,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             }
           } else {
-            // Show form and hide profile summary
+            // Show the profile form and hide the profile summary if no profile exists
             const profileForm = document.getElementById('profile-form');
             const profileSummary = document.getElementById('profile-summary');
             if (profileForm && profileSummary) {
@@ -58,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
               profileSummary.style.display = 'none';
             }
 
-
-            // Populate form fields if profile data exists
+            // Populate the form fields with existing profile data if available
             if (user.profile) {
               document.getElementById('fullName').value = user.profile.fullName || '';
               document.getElementById('location').value = user.profile.location || '';
@@ -71,8 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
 
-
-          // Add event listener for edit button
+          // Add a click event listener to the edit profile button
           const editButton = document.getElementById('edit-profile-button');
           if (editButton) {
             editButton.addEventListener('click', () => {
@@ -80,20 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
               const profileSummary = document.getElementById('profile-summary');
               const successMessage = document.getElementById('success-message');
 
-
+              // Show the profile form and hide the profile summary
               if (profileForm && profileSummary) {
                 profileForm.style.display = 'block';
                 profileSummary.style.display = 'none';
               }
 
-
-              // Hide success message when editing
+              // Hide the success message when editing the profile
               if (successMessage) {
                 successMessage.style.display = 'none';
               }
 
-
-              // Populate form fields with existing profile data
+              // Populate the form fields with the current profile data
               document.getElementById('fullName').value = user.profile.fullName || '';
               document.getElementById('location').value = user.profile.location || '';
               document.getElementById('skillsOffered').value = user.profile.skillsOffered || '';
@@ -104,47 +94,43 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
         } else {
-          // If not logged in and on the dashboard page, redirect to login page
+          // Redirect to the login page if the user is not logged in
           window.location.href = '/login.html';
         }
       })
       .catch((error) => console.error('Error fetching session data:', error));
   }
 
-
-  // Check if we're on the profiles page
+  // Check if the current page is the profiles page
   if (window.location.pathname.endsWith('/profiles.html')) {
-    // Function to initialize the map with given coordinates
+    // Function to initialize the Leaflet map with given coordinates
     function initializeMap(currentLat, currentLon) {
-      // Initialize the map centered on the user's current location
+      // Create a new Leaflet map centered at the user's location
       const map = L.map('map').setView([currentLat, currentLon], 13);
 
-
-      // Add OpenStreetMap tiles
+      // Add OpenStreetMap tiles to the map
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-
-      // Add a marker for the current user
+      // Define a custom icon for the user's marker
       const userIcon = L.icon({
         iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
       });
 
-
+      // Add a marker for the user's current location
       L.marker([currentLat, currentLon], { icon: userIcon })
         .addTo(map)
         .bindPopup('You are here')
         .openPopup();
 
-
-      // Fetch profiles data with current location
+      // Fetch nearby profiles based on the user's location
       fetch(`/profiles?lat=${currentLat}&lon=${currentLon}`)
         .then((response) => {
           if (response.redirected) {
-            // Redirect to login if not authenticated
+            // Redirect to login if the user is not authenticated
             window.location.href = '/login.html';
           } else {
             return response.json();
@@ -155,13 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const profilesList = document.getElementById('profiles-list');
             if (profilesList) {
               if (data.profiles.length === 0) {
+                // Display a message if no profiles are found
                 profilesList.innerHTML = '<p>No neighbors found within a 5 km radius.</p>';
               } else {
+                // Iterate through each profile and create profile cards and markers
                 data.profiles.forEach((user) => {
                   const profileCard = document.createElement('div');
                   profileCard.className = 'profile-card';
 
-
+                  // Populate the profile card with user information
                   profileCard.innerHTML = `
                     <h3>${user.profile.fullName}</h3>
                     <p><strong>Location:</strong> ${user.profile.location}</p>
@@ -172,11 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Bio:</strong> ${user.profile.bio}</p>
                   `;
 
-
+                  // Add the profile card to the profiles list
                   profilesList.appendChild(profileCard);
 
-
-                  // Add marker to the map for each nearby user
+                  // Add a marker on the map for the nearby user
                   const marker = L.marker([user.profile.latitude, user.profile.longitude])
                     .addTo(map)
                     .bindPopup(
@@ -192,9 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch((error) => console.error('Error fetching profiles:', error));
     }
 
-
-    // Check if geolocation is available
+    // Check if the browser supports geolocation
     if (navigator.geolocation) {
+      // Attempt to get the user's current location
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const currentLat = position.coords.latitude;
@@ -203,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         (error) => {
           console.error('Error getting location:', error);
-          // Handle location error (e.g., user denied access)
+          // Use default coordinates if location access fails
           alert('Unable to access your location. Using default location.');
           const currentLat = 43.6055; // Latitude of 50 Bristol Rd W, Mississauga, ON
           const currentLon = -79.6968; // Longitude of 50 Bristol Rd W, Mississauga, ON
@@ -211,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       );
     } else {
+      // Use default coordinates if geolocation is not supported
       alert('Geolocation is not supported by your browser. Using default location.');
       const currentLat = 43.6055; // Latitude of 50 Bristol Rd W, Mississauga, ON
       const currentLon = -79.6968; // Longitude of 50 Bristol Rd W, Mississauga, ON
@@ -218,9 +206,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
-  // Existing code for other pages (if any)...
 });
-
-
-
