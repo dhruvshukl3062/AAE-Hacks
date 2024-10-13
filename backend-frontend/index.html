@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Home | Skill Exchange Platform</title>
-  <!-- Google Fonts -->
+  
+  <!-- Load Google Fonts for typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
   <meta name="description" content="Connect and exchange skills with individuals around the world. Join Skill Exchange to learn and teach new skills efficiently and effectively.">
+  
   <style>
+    /* Define CSS variables for consistent theming */
     :root {
       --primary-color: #1e1e1e;
       --secondary-color: #ffffff;
@@ -17,12 +21,12 @@
       --button-border-color: #b71c1c;
       --button-hover-bg: #b71c1c;
       --button-hover-text: #ffffff;
-      --line-color: rgba(180, 37, 37, 0.911); /* Updated to red tint */
-      --circle-color: #e4e3e3; /* Soft gray for the circle */
-      --nav-height: 60px; /* Fixed navigation height */
+      --line-color: rgba(180, 37, 37, 0.911);
+      --circle-color: #e4e3e3;
+      --nav-height: 60px;
     }
     
-    /* Prevent scrolling */
+    /* Set base styles and prevent scrolling */
     html, body {
       height: 100%;
       margin: 0;
@@ -30,10 +34,10 @@
       background-color: var(--background-color);
       color: var(--text-color);
       line-height: 1.6;
-      overflow: hidden; /* Prevent scrolling */
+      overflow: hidden;
     }
     
-    /* Navigation Bar */
+    /* Style the navigation bar */
     nav {
       display: flex;
       justify-content: space-between;
@@ -47,6 +51,7 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
+    /* Style the logo link in the nav */
     nav .logo a {
       color: var(--primary-color);
       font-weight: bold;
@@ -54,12 +59,14 @@
       text-decoration: none;
     }
     
+    /* Style the menu icon for responsive navigation */
     nav .menu-icon {
       display: none;
       flex-direction: column;
       cursor: pointer;
     }
     
+    /* Style individual bars of the menu icon */
     nav .menu-icon .bar {
       width: 25px;
       height: 3px;
@@ -67,11 +74,13 @@
       margin: 4px 0;
     }
     
+    /* Style the navigation links container */
     nav .nav-links {
       display: flex;
       align-items: center;
     }
     
+    /* Style individual navigation links */
     nav .nav-links a {
       color: var(--primary-color);
       font-weight: bold;
@@ -80,17 +89,21 @@
       transition: color 0.3s;
     }
     
+    /* Change color on hover for navigation links */
     nav .nav-links a:hover {
       color: var(--accent-color);
     }
     
+    /* Responsive styles for navigation */
     @media (max-width: 768px) {
+      /* Show menu icon on smaller screens */
       nav .menu-icon {
         display: flex;
       }
-    
+      
+      /* Style the navigation links for dropdown */
       nav .nav-links {
-        display: flex; /* Changed from display: none; to display: flex; */
+        display: flex;
         flex-direction: column;
         position: absolute;
         top: var(--nav-height);
@@ -106,56 +119,61 @@
         opacity: 0;
         z-index: 999;
       }
-    
+      
+      /* Show the dropdown menu when active */
       nav .nav-links.show {
         max-height: 500px;
         opacity: 1;
       }
-    
+      
+      /* Adjust navigation links in dropdown */
       nav .nav-links a {
         margin: 10px 0;
         text-align: center;
       }
     }
     
-    /* Hero Section */
+    /* Style the hero section */
     .hero {
       background-color: var(--secondary-color);
-      padding: 10px 40px; /* Reduced top padding */
+      padding: 10px 40px;
       text-align: left;
       position: relative;
       display: flex;
-      align-items: flex-start; /* Align items to the top */
+      align-items: flex-start;
       justify-content: flex-start;
-      height: calc(100vh - var(--nav-height)); /* Full viewport height minus nav height */
+      height: calc(100vh - var(--nav-height));
       box-sizing: border-box;
-      overflow: hidden; /* Prevent internal overflow */
+      overflow: hidden;
     }
     
+    /* Style the circular background element in hero */
     .circle-background {
       position: absolute;
-      top: 58%; /* Adjusted from 65% to move up */
+      top: 58%;
       right: 20%;
       width: 300px;
       height: 300px;
-      background-color: rgba(228, 227, 227, 0.9); /* Increased opacity */
+      background-color: rgba(228, 227, 227, 0.9);
       border-radius: 50%;
-      border: 5px solid #ffffff; /* Added ring with matching color */
+      border: 5px solid #ffffff;
       transform: translate(50%, -50%);
       z-index: 0;
     }
     
+    /* Style the content within the hero section */
     .hero-content {
       z-index: 2;
       max-width: 500px;
       text-align: left;
-      margin-top: 20px; /* Reduced margin-top to move content up */
+      margin-top: 20px;
       margin-right: 50px;
     }
     
+    /* Style the hero image */
     .hero-image {
       position: absolute;
-      top: 25%; /* Adjusted from 35% to move up */
+      top: 25%;
       right: 5%;
       width: 80%;
       max-width: 800px;
@@ -163,23 +181,26 @@
       z-index: 1;
     }
     
+    /* Style the site title in the hero section */
     .site-title {
-      font-size: 72px; /* Updated font size */
+      font-size: 72px;
       font-family: 'Roboto', serif;
-      color: #b71c1c; /* Changed to match red theme */
-      margin-bottom: 15px; /* Reduced margin-bottom */
+      color: #b71c1c;
+      margin-bottom: 15px;
       font-weight: 700;
       text-transform: uppercase;
     }
     
+    /* Style the site description in the hero section */
     .site-description {
-      font-size: 16px; /* Increased font size for readability */
+      font-size: 16px;
       color: #666;
       max-width: 400px;
-      margin: 0 0 20px 0; /* Reduced bottom margin */
+      margin: 0 0 20px 0;
       line-height: 1.6;
     }
     
+    /* Style the call-to-action button */
     .cta-button {
       display: inline-block;
       padding: 10px 20px;
@@ -194,12 +215,13 @@
       background-color: white;
     }
     
+    /* Change button appearance on hover */
     .cta-button:hover {
       background-color: var(--button-hover-bg);
       color: var(--button-hover-text);
     }
     
-    /* SVG Curved Lines with Moving Gradient */
+    /* Style for SVG curved lines with moving gradient */
     .curved-line {
       position: absolute;
       top: 0;
@@ -210,39 +232,47 @@
       z-index: 0;
     }
 
+    /* Style paths within the SVG */
     .curved-line path {
       fill: none;
-      stroke-width: 2; /* Consistent stroke width */
+      stroke-width: 2;
       stroke: var(--line-color);
       stroke-linecap: round;
-      stroke: url(#moving-gradient); /* Apply animated gradient stroke */
+      stroke: url(#moving-gradient);
     }
-
+    
+    /* Define keyframes for moving gradient animation */
     @keyframes move-gradient {
       0% { offset: 0; }
       100% { offset: 1; }
     }
-
+    
+    /* Apply animation to the gradient */
     #moving-gradient {
       animation: move-gradient 3s linear infinite;
     }
-
+    
+    /* Responsive styles for medium screens */
     @media (max-width: 768px) {
+      /* Adjust site title size on smaller screens */
       .site-title {
-        font-size: 48px; /* Adjusted for smaller screens */
+        font-size: 48px;
       }
 
+      /* Adjust site description on smaller screens */
       .site-description {
         font-size: 16px;
         max-width: 100%;
       }
       
+      /* Adjust call-to-action button on smaller screens */
       .cta-button {
         font-size: 16px;
         padding: 10px 20px;
         width: 150px;
       }
       
+      /* Adjust hero image on smaller screens */
       .hero-image {
         width: 60%;
         top: 10px;
@@ -250,33 +280,40 @@
       }
     }
     
+    /* Responsive styles for extra small screens */
     @media (max-width: 600px) {
+      /* Adjust hero section padding and alignment */
       .hero {
-        padding: 10px 20px; /* Further reduced padding */
-        height: calc(100vh - var(--nav-height)); /* Maintain full height */
+        padding: 10px 20px;
+        height: calc(100vh - var(--nav-height));
         justify-content: center;
         text-align: center;
-        align-items: center; /* Center vertically */
+        align-items: center;
       }
       
+      /* Adjust site title size on extra small screens */
       .site-title {
         font-size: 48px;
       }
       
+      /* Adjust site description on extra small screens */
       .site-description {
         font-size: 14px;
         max-width: 100%;
       }
       
+      /* Adjust call-to-action button on extra small screens */
       .cta-button {
         font-size: 16px;
         padding: 10px 20px;
       }
       
+      /* Hide hero image on extra small screens */
       .hero-image {
         display: none;
       }
       
+      /* Adjust circle background on extra small screens */
       .circle-background {
         width: 200px;
         height: 200px;
@@ -285,7 +322,7 @@
       }
     }
     
-    /* Accessibility Focus Styles */
+    /* Define focus styles for accessibility */
     a.cta-button:focus, button:focus {
       outline: 2px dashed var(--accent-color);
       outline-offset: 4px;
@@ -293,6 +330,8 @@
   </style>
 </head>
 <body class="homepage">
+  
+  <!-- Navigation bar with logo and links -->
   <nav>
     <div class="logo">
       <a href="index.html">Skill Exchange</a>
@@ -308,11 +347,15 @@
     </div>
   </nav>
 
+  <!-- Hero section with background elements and content -->
   <section class="hero">
-    <!-- Circle background element -->
+    <!-- Circular background element -->
     <div class="circle-background"></div>
     
+    <!-- Illustration image in the hero section -->
     <img src="couch.png" alt="Skill Exchange Illustration" class="hero-image">
+    
+    <!-- Content within the hero section -->
     <div class="hero-content">
       <h1 class="site-title">Skill Exchange</h1>
       <p class="site-description">
@@ -322,7 +365,7 @@
     </div>
   </section>
 
-  <!-- SVG Curved Lines with Moving Gradient -->
+  <!-- SVG element for decorative curved lines with animated gradient -->
   <svg class="curved-line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
     <defs>
       <linearGradient id="moving-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -332,19 +375,21 @@
       </linearGradient>
     </defs>
     
-    <!-- First line: bottom right to top left -->
+    <!-- First curved line with animated gradient -->
     <path d="M100,100 Q12,-43 -10, 25" stroke="url(#moving-gradient)" />
 
-    <!-- Second line: top right to bottom left -->
+    <!-- Second curved line with animated gradient -->
     <path d="M100,10 Q70,130 0,140" stroke="url(#moving-gradient)" />
   </svg>
 
   <script>
+    // Function to toggle the navigation menu on smaller screens
     function toggleMenu() {
       var navLinks = document.getElementById("navLinks");
       navLinks.classList.toggle("show");
     }
 
+    // Add keyboard accessibility to the menu icon
     document.querySelector('.menu-icon').addEventListener('keypress', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
         toggleMenu();
@@ -352,7 +397,7 @@
       }
     });
 
-    // Ensure the menu is closed on page load
+    // Ensure the navigation menu is closed when the page loads
     document.addEventListener('DOMContentLoaded', function() {
       var navLinks = document.getElementById("navLinks");
       navLinks.classList.remove("show");
